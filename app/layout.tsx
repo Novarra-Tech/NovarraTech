@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 import { fontSans } from "@/config/fonts";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
+import { ThemeSwitch} from "@/components/theme-switch";
 
 export const metadata: Metadata = {
   title: {
@@ -48,6 +49,9 @@ export default function RootLayout({
             <main className="container mx-auto max-w-8xl px-6 flex-grow">
               {children}
             </main>
+              <div className="fixed bottom-4 right-4 z-50">
+                  <ThemeSwitch className="transition-transform duration-300 hover:scale-110 hover:rotate-12" />
+              </div>
               <Footer/>
           </div>
         </Providers>
