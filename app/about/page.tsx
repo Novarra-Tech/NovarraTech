@@ -1,5 +1,6 @@
 import { title } from "@/components/primitives";
-
+import {Card, CardHeader, CardBody, CardFooter} from "@heroui/card";
+import {Image} from "@heroui/image";
 type Member = {
   name: string;
   role: string;
@@ -11,22 +12,19 @@ const team: Member[] = [
   {
     name: "Gabriel Kaloo",
     role: "Role",
-    about:
-      "Hi my name is Gabe and I like blah blah blah",
-    img: "/images/photo.jpg",
+    about: "Hi my name is Gabe and I like blah blah blah",
+    img: "/images/image.png",
   },
   {
     name: "Sehajveer Dhillon",
     role: "Role",
-    about:
-      "Hi my name is Gabe and I like blah blah blah.",
+    about: "Hi my name is Gabe and I like blah blah blah.",
     img: "/images/photo.jpg",
   },
   {
     name: "Onkar Dhillon",
     role: "Role",
-    about:
-      "Hi my name is Gabe and I like blah blah blah.",
+    about: "Hi my name is Gabe and I like blah blah blah.",
     img: "/images/photo.jpg",
   },
 ];
@@ -45,10 +43,17 @@ export default function AboutPage() {
             className={"flex justify-center items-center mb-16 gap-x-50 mx-auto max-w-3xl "}
             key={m.name}
           >
-            <img
+            <Image
               src={m.img}
               alt={`${m.name} headshot`}
-              className="w-56 h-72 rounded-2xl object-cover shrink-0"
+              width={224}
+              height={288}
+              radius="lg"
+              isBlurred
+              classNames={{
+                wrapper: "shrink-0 object-cover backdrop-blur-3xl bg-white/20 rounded-3xl",
+                img: "object-cover scale-100", 
+              }}
             />
 
             <div className="flex-1 text-left">
