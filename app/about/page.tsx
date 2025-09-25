@@ -12,28 +12,28 @@ const team: Member[] = [
     name: "Gabriel Kaloo",
     role: "Role",
     about:
-      "Description",
+      "Hi my name is Gabe and I like blah blah blah",
     img: "/images/photo.jpg",
   },
   {
     name: "Sehajveer Dhillon",
     role: "Role",
     about:
-      "Description.",
+      "Hi my name is Gabe and I like blah blah blah.",
     img: "/images/photo.jpg",
   },
   {
     name: "Onkar Dhillon",
     role: "Role",
     about:
-      "Description.",
+      "Hi my name is Gabe and I like blah blah blah.",
     img: "/images/photo.jpg",
   },
 ];
 
 export default function AboutPage() {
   return (
-    <section className="max-w-5xl mx-auto px-8 py-12">
+    <section className="max-w-5xl mx-auto px-12 py-12">
       <div className="mb-12 text-center">
         <h1 className={title()}>About</h1>
         <p className="mt-8 text-lg"> </p>
@@ -42,20 +42,20 @@ export default function AboutPage() {
       <div>
         {team.map((m) => (
           <article
-            key={m.name}
-            className={"flex items-start mb-4" }
+            className={"flex justify-center items-center mb-16 gap-x-50 mx-auto max-w-3xl "}
           >
             <img
               src={m.img}
               alt={`${m.name} headshot`}
-              style={{ width: "2in", height: "3in" }}
-              className="shrink-0 rounded-2xl object-cover object-center"
+              className="w-56 h-72 rounded-2xl object-cover shrink-0"
             />
 
-            <div className="flex-1">
-              <h2 className="text-2xl font-semibold mb-2">{m.name}</h2>
-              <p className="text-base text-gray-400 mb-2">{m.role}</p>
-              <p className="text-lg leading-relaxed">{m.about}</p>
+            <div className="flex-1 text-left">
+              <h2 className="text-3xl font-semibold leading-tight md:whitespace-nowrap">
+                {m.name}
+              </h2>
+              <p className="text-base text-gray-400 mt-1">{m.role}</p>
+              <p className="mt-4 text-lg leading-relaxed whitespace-nowrap">{m.about}</p>
             </div>
           </article>
         ))}
