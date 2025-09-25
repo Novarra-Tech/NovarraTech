@@ -44,7 +44,7 @@ export default function AboutPage() {
           key={m.name}
           radius="lg"
           shadow="lg"
-          className="mx-auto mb-16 w-full max-w-5xl bg-content1/60 backdrop-blur-xl border border-white/10"
+          className="mx-auto mb-16 w-full max-w-5xl bg-content1/60 backdrop-blur-xl border light:border-black/10 dark:border-white/10"
         >
           <CardBody className="p-6 md:p-10">
             <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
@@ -56,7 +56,7 @@ export default function AboutPage() {
                 radius="lg"
                 isBlurred
                 classNames={{
-                  wrapper: "shrink-0 rounded-2xl bg-white/20 backdrop-blur-3xl",
+                  wrapper: "shrink-0 rounded-2xl bg-white/20 backdrop-blur-3xl border light:border-black dark:border-white/10",
                   img: "object-cover",
                 }}
               />
