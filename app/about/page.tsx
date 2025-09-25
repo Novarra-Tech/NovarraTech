@@ -1,6 +1,7 @@
 import { title } from "@/components/primitives";
-import {Card, CardHeader, CardBody, CardFooter} from "@heroui/card";
-import {Image} from "@heroui/image";
+import { Card, CardBody } from "@heroui/card";
+import { Image } from "@heroui/image";
+
 type Member = {
   name: string;
   role: string;
@@ -9,63 +10,71 @@ type Member = {
 };
 
 const team: Member[] = [
-  {
-    name: "Gabriel Kaloo",
-    role: "Role",
-    about: "Hi my name is Gabe and I like blah blah blah",
-    img: "/images/image.png",
+  { 
+    name: "Gabriel Kaloo", 
+    role: "Role", 
+    about: "Gabriel is a senior Computer Science student with strong experience in IT services and technology support", 
+    img: "/images/image.png" 
   },
-  {
-    name: "Sehajveer Dhillon",
-    role: "Role",
-    about: "Hi my name is Gabe and I like blah blah blah.",
-    img: "/images/photo.jpg",
+
+  { 
+    name: "Sehajveer Dhillon", 
+    role: "Role", 
+    about: "Hi my name is Gabe and I like blah blah blah.", 
+    img: "/images/photo.jpg" 
   },
-  {
-    name: "Onkar Dhillon",
-    role: "Role",
-    about: "Hi my name is Gabe and I like blah blah blah.",
-    img: "/images/photo.jpg",
+
+  { 
+    name: "Onkar Dhillon", 
+    role: "Role", 
+    about: "Hi my name is Gabe and I like blah blah blah.", 
+    img: "/images/photo.jpg" 
   },
 ];
 
 export default function AboutPage() {
   return (
-    <section >
+    <section>
       <div className="mb-12 text-center">
         <h1 className={title()}>About</h1>
-        <p className="mt-8 text-lg"> </p>
       </div>
 
-      <div>
-        {team.map((m) => (
-          <article
-            className={"flex justify-center items-center mb-16 gap-x-50 mx-auto max-w-3xl "}
-            key={m.name}
-          >
-            <Image
-              src={m.img}
-              alt={`${m.name} headshot`}
-              width={224}
-              height={288}
-              radius="lg"
-              isBlurred
-              classNames={{
-                wrapper: "shrink-0 object-cover backdrop-blur-3xl bg-white/20 rounded-3xl",
-                img: "object-cover scale-100", 
-              }}
-            />
+      {team.map((m) => (
+        <Card
+          key={m.name}
+          radius="lg"
+          shadow="lg"
+          className="mx-auto mb-16 w-full bg-content1/60 backdrop-blur-xl border border-white/10"
+        >
+          <CardBody className="p-6 md:p-10">
+            <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
+              {/* Left: image */}
+              <Image
+                src={m.img}
+                alt={`${m.name} headshot`}
+                width={224}         // w-56
+                height={288}        // h-72
+                radius="lg"
+                isBlurred
+                classNames={{
+                  wrapper: "shrink-0 rounded-2xl bg-white/20 backdrop-blur-3xl",
+                  img: "object-cover",
+                }}
+              />
 
-            <div className="flex-1 text-left">
-              <h2 className="text-3xl font-semibold leading-tight md:whitespace-nowrap">
-                {m.name}
-              </h2>
-              <p className="text-base text-gray-400 mt-1">{m.role}</p>
-              <p className="mt-4 text-lg leading-relaxed whitespace-nowrap">{m.about}</p>
+              {/* Right: text */}
+              <div className="text-left md:flex-1">
+                <h2 className="text-3xl font-semibold leading-tight">{m.name}</h2>
+                <p className="text-base text-gray-400 mt-1">{m.role}</p>
+                {/* keep one line; add ellipsis if it overflows */}
+                <p className="mt-4 text-lg leading-relaxed whitespace-nowrap overflow-hidden text-ellipsis">
+                  {m.about}
+                </p>
+              </div>
             </div>
-          </article>
-        ))}
-      </div>
+          </CardBody>
+        </Card>
+      ))}
     </section>
   );
 }
