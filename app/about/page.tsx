@@ -12,7 +12,7 @@ const team: Member[] = [
     name: "Gabriel Kaloo",
     role: "Role",
     about:
-      "Hi my name is Gabe and I like blah blah blah",
+      "Gabriel is a senior Computer Science student with strong experience in IT services and technology support.",
     img: "/images/photo.jpg",
   },
   {
