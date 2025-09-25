@@ -31,7 +31,7 @@ const team: Member[] = [
 
 export default function AboutPage() {
   return (
-    <section className="max-w-5xl mx-auto px-12 py-12">
+    <section >
       <div className="mb-12 text-center">
         <h1 className={title()}>About</h1>
         <p className="mt-8 text-lg"> </p>
