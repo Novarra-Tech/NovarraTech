@@ -52,7 +52,7 @@ export default function RootLayout({
               <div className="fixed bottom-4 right-4 z-50">
                   <ThemeSwitch className="transition-transform duration-300 hover:scale-110 hover:rotate-12" />
               </div>
-              <Footer/>
+              {/* <Footer/> */}
           </div>
         </Providers>
       </body>
