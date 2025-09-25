@@ -43,6 +43,7 @@ export default function AboutPage() {
         {team.map((m) => (
           <article
             className={"flex justify-center items-center mb-16 gap-x-50 mx-auto max-w-3xl "}
+            key={m.name}
           >
             <img
               src={m.img}
