@@ -62,12 +62,10 @@ export default function AboutPage() {
                 }}
               />
 
-              {/* Right: text */}
               <div className="text-left md:flex-1">
                 <h2 className="text-3xl font-semibold leading-tight">{m.name}</h2>
                 <p className="text-base text-gray-400 mt-1">{m.role}</p>
-                {/* keep one line; add ellipsis if it overflows */}
-                <p className="mt-4 text-lg leading-relaxed whitespace-nowrap overflow-hidden text-ellipsis">
+                <p className="mt-4 text-lg leading-relaxed overflow-hidden text-ellipsis">
                   {m.about}
                 </p>
               </div>
