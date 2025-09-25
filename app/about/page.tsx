@@ -12,7 +12,7 @@ const team: Member[] = [
     name: "Gabriel Kaloo",
     role: "Role",
     about:
-      "Hi my name is Gabe and I like blah blah blah",
+      "Gabriel is a 21 year old computer science student",
     img: "/images/photo.jpg",
   },
   {
@@ -43,6 +43,7 @@ export default function AboutPage() {
         {team.map((m) => (
           <article
             className={"flex justify-center items-center mb-16 gap-x-50 mx-auto max-w-3xl "}
+            key={m.name}
           >
             <img
               src={m.img}
