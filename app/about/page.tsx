@@ -12,8 +12,14 @@ type Member = {
 const team: Member[] = [
   { 
     name: "Gabriel Kaloo", 
-    role: "Role", 
-    about: "Gabriel is a senior Computer Science student with strong experience in IT services and technology support", 
+    role: "Managing Partner, CEO",
+    about: "Gabriel is a senior Computer Science student and Audio Visual Technician at Adelphi University. " +
+        "As part of his role, he manages classroom technology systems across campus, working with a dedicated IT team and external vendors to keep systems running seamlessly. " +
+        "Gabriel also provides training for professors and academic professionals, helping them integrate technology confidently into their teaching" +
+        "Beyond his AV expertise, Gabriel brings extensive experience in Level 1 and Level 2 IT services. \n He has collaborated with high-profile corporate clients, delivering IT solutions that meet enterprise standards of performance and security. " +
+        "Exposure to network engineering and cybersecurity further strengthens his ability to approach projects with technical depth and a security-first mindset" + "Recognized for his professionalism, Gabriel works directly with clients to ensure their needs are understood and their satisfaction is achieved. " +
+        "His commitment to reliable, high-quality service makes him a trusted partner for both academic institutions and businesses"
+    ,
     img: "/images/image.png" 
   },
 
