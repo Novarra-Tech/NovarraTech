@@ -21,7 +21,7 @@ const team: Member[] = [
     name: "Sehajveer Dhillon", 
     role: "Role", 
     about: "Hi my name is Gabe and I like blah blah blah.", 
-    img: "/images/sehaj.jpg" 
+    img: "/images/sehaj.jpeg" 
   },
 
   { 
