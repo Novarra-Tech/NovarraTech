@@ -27,7 +27,7 @@ const config = {
             light: {
                 layout: {},
                 colors: {
-                    background: "#F3E8FF", // Soft lavender
+                    background: "#7393B3", // Soft lavender
                     subheading: "#7C3AED", // Purple accents (formerly foreground)
                     heading: "#5B21B6", // Darker purple for headings
                     primary: {
