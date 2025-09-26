@@ -76,7 +76,7 @@ export default function BlogPage() {
                 <h1 className={title()}>Contact Us</h1>
             </div>
 
-            <Form className="w-full" onSubmit={onSubmit}>
+            <Form className="w-full " onSubmit={onSubmit}>
                 <Input
                     isRequired
                     label="Name"
@@ -84,9 +84,16 @@ export default function BlogPage() {
                     name="name"
                     placeholder="Enter your name"
                     type="text"
+                    
                     value={name}
                     onValueChange={setName}
+                    
                     className="mb-4"
+                    classNames={{
+                        inputWrapper: "border light:border-black/10 dark:border-white/10 rounded-md",
+                        input: "text-white"
+                    }}
+
                 />
 
                 <Input
@@ -101,6 +108,10 @@ export default function BlogPage() {
                     onValueChange={setEmail}
                     startContent={<MailIcon className="text-2xl text-default-400 pointer-events-none shrink-0"/>}
                     className="mb-4"
+                    classNames={{
+                        inputWrapper: "border light:border-black/10 dark:border-white/10 rounded-md",
+                        input: "text-white"
+                    }}
                 />
 
                 <Textarea
@@ -113,6 +124,10 @@ export default function BlogPage() {
                     onValueChange={setMessage}
                     minRows={4}
                     className="mb-4 text-left"
+                    classNames={{
+                        inputWrapper: "border light:border-black/10 dark:border-white/10 rounded-md",
+                        input: "text-white"
+                    }}
                 />
 
                 <div className="flex justify-center w-full">

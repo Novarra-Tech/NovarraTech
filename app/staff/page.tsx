@@ -9,7 +9,6 @@ export default function SplitImage() {
   return (
     <div className="relative w-full h-screen overflow-hidden">
 
-      {/* Left third */}
       <motion.div
         initial={{ y: "150%" }}
         animate={{ y: "0%" }}
@@ -21,7 +20,6 @@ export default function SplitImage() {
         </div>
       </motion.div>
 
-      {/* Middle third */}
       <motion.div
         initial={{ y: "-125%" }}
         animate={{ y: "0%" }}
@@ -33,7 +31,6 @@ export default function SplitImage() {
         </div>
       </motion.div>
 
-      {/* Right third */}
       <motion.div
         initial={{ y: "150%" }}
         animate={{ y: "0%"}}
