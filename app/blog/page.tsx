@@ -1,7 +1,7 @@
 'use client'
 import { title } from "@/components/primitives";
 import {Form, Input, Button, Textarea} from "@heroui/react";
-import emailjs from "emailjs-com";
+import emailjs from "@emailjs/browser";
 
 
 import React from "react";
@@ -9,7 +9,7 @@ import React from "react";
 export default function BlogPage() {
   const [submitted, setSubmitted] = React.useState<"success" | "error" | null>(null);
 
-  const onSubmit = (e) => {
+  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     emailjs.sendForm(
