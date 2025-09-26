@@ -11,8 +11,8 @@ export default function SplitImage() {
 
       {/* Left third */}
       <motion.div
-        initial={{ x: "-100%" }}
-        animate={{ x: "0%" }}
+        initial={{ y: "150%" }}
+        animate={{ y: "0%" }}
         transition={{ duration: 2.2, ease: "easeOut" }}
         className="absolute top-0 left-0 w-1/3 h-4/5 overflow-hidden"
       >
@@ -23,9 +23,9 @@ export default function SplitImage() {
 
       {/* Middle third */}
       <motion.div
-        initial={{ y: "-100%" }}
+        initial={{ y: "-125%" }}
         animate={{ y: "0%" }}
-        transition={{ duration: 2.2, ease: "easeOut", delay: 0.2 }}
+        transition={{ duration: 2.2, ease: "easeOut" }}
         className="absolute top-0 left-33% w-1/3 h-4/5 overflow-hidden"
       >
         <div className="absolute inset-0 clip-middle">
@@ -35,9 +35,9 @@ export default function SplitImage() {
 
       {/* Right third */}
       <motion.div
-        initial={{ x: "250%", opacity:0 }}
-        animate={{ x: "0%" , opacity: 1}}
-        transition={{ duration: 2.2, ease: "easeOut" }}
+        initial={{ y: "150%" }}
+        animate={{ y: "0%"}}
+        transition={{ duration: 2.2, ease: "easeOut" , delay: 0.4}}
         className="absolute top-0 left-66% w-1/3 h-4/5 overflow-hidden"
       >
         <div className="absolute inset-0 clip-right">
