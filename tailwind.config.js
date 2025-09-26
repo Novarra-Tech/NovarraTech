@@ -30,8 +30,11 @@ const config = {
                     background: "#F3E8FF", // Soft lavender
                     subheading: "#7C3AED", // Purple accents (formerly foreground)
                     heading: "#5B21B6", // Darker purple for headings
-                    primary: "#8B5CF6",
-                    secondary: "#A78BFA",
+                    primary: {
+                        DEFAULT: "#ffffffff",
+                        foreground: "#000000",
+                    },
+                    secondary: "#2d2d2dff",
                     hover: "#E9D5FF", // Light purple hover effect
                     text: "#374151", // Dark gray text color for light mode
                 },
@@ -43,7 +46,7 @@ const config = {
                     subheading: "#C4B5FD", // Soft purple subheading (formerly foreground)
                     heading: "#6D28D9", // Darker purple for headings
                     primary: {
-                        DEFAULT: "#8B5CF6", // Bright purple primary
+                        DEFAULT: "#4d4e5b9a", // Bright purple primary
                         foreground: "#FFFFFF",
                     },
                     accent: "#7C3AED",

@@ -131,7 +131,14 @@ export default function BlogPage() {
                 />
 
                 <div className="flex justify-center w-full">
-                    <Button type="submit" variant="bordered">
+                    <Button 
+                        type="submit"
+                        variant="solid"
+                        color="primary"
+                        size="lg"
+                        disabled={!email || !name || !message}
+                        className="border light:border-black/10 dark:border-white/10 light:text-black dark:text-white"
+                    >
                         Submit
                     </Button>
                 </div>
