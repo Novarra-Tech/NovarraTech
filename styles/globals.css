@@ -1,3 +1,16 @@
 @import "tailwindcss";
+.clip-left {
+  clip-path: inset(0 66.66% 0 0); /* show left third */
+}
+
+.clip-middle {
+  clip-path: inset(0 33.33% 0 33.33%); /* show middle third */
+}
+
+.clip-right {
+  clip-path: inset(0 0 0 66.66%); /* show right third */
+}
+
+
 
 @config "../tailwind.config.js"

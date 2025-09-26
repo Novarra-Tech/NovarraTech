@@ -4,47 +4,47 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 
 export default function SplitImage() {
-    const imageUrl = "/images/sehaj.jpg";
+  const imageUrl = "/images/sehaj.jpg";
 
-    return (
-        <div className="relative w-full h-screen flex  overflow-hidden">
+  return (
+    <div className="relative w-full h-screen overflow-hidden">
 
-            {/* Right Half slides in first */}
-            <motion.div
-                initial={{ x: "100%" }}
-                animate={{ x: "0%" }}
-                transition={{ duration: 1.2, ease: "easeOut", delay: 1.2 }}
-                className="relative w-1/2 h-full overflow-hidden"
-            >
-                <div className="absolute inset-0">
-                    <Image
-                        src={imageUrl}
-                        alt="Right Half"
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="-1500%" // your custom position
-                    />
-                </div>
-            </motion.div>
-
-            {/* Left Half slides in second */}
-            <motion.div
-                initial={{ x: "100%" }}
-                animate={{ x: "0%" }}
-                transition={{ duration: 1.2, ease: "easeOut" }}
-                className="relative w-1/2 h-full overflow-hidden"
-            >
-                <div className="absolute inset-0">
-                    <Image
-                        src={imageUrl}
-                        alt="Left Half"
-                        layout="fill"
-                        objectFit="cover"
-                        objectPosition="1409%" // your custom position
-                    />
-                </div>
-            </motion.div>
-
+      {/* Left third */}
+      <motion.div
+        initial={{ x: "-100%" }}
+        animate={{ x: "0%" }}
+        transition={{ duration: 2.2, ease: "easeOut" }}
+        className="absolute top-0 left-0 w-1/3 h-4/5 overflow-hidden"
+      >
+        <div className="absolute inset-0 clip-left">
+          <Image src={imageUrl} alt="Left Third" fill style={{ objectFit: "cover" }} />
         </div>
-    );
+      </motion.div>
+
+      {/* Middle third */}
+      <motion.div
+        initial={{ y: "-100%" }}
+        animate={{ y: "0%" }}
+        transition={{ duration: 2.2, ease: "easeOut", delay: 0.2 }}
+        className="absolute top-0 left-33% w-1/3 h-4/5 overflow-hidden"
+      >
+        <div className="absolute inset-0 clip-middle">
+          <Image src={imageUrl} alt="Middle Third" fill style={{ objectFit: "cover" }} />
+        </div>
+      </motion.div>
+
+      {/* Right third */}
+      <motion.div
+        initial={{ x: "250%", opacity:0 }}
+        animate={{ x: "0%" , opacity: 1}}
+        transition={{ duration: 2.2, ease: "easeOut" }}
+        className="absolute top-0 left-66% w-1/3 h-4/5 overflow-hidden"
+      >
+        <div className="absolute inset-0 clip-right">
+          <Image src={imageUrl} alt="Right Third" fill style={{ objectFit: "cover" }} />
+        </div>
+      </motion.div>
+
+    </div>
+  );
 }

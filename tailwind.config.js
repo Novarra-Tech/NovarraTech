@@ -15,6 +15,7 @@ const config = {
             },
         },
     },
+    
     darkMode: "class",
     plugins: [heroui({
         prefix: "heroui",
