@@ -187,7 +187,7 @@ export const SearchIcon = (props: IconSvgProps) => (
 );
 
 
-export const MailIcon = (props) => {
+export const MailIcon = (props: IconSvgProps) => {
     return (
         <svg
             aria-hidden="true"

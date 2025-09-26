@@ -1,6 +1,6 @@
 'use client'
 import {title} from "@/components/primitives";
-import {Form, Input, Button, Textarea} from "@heroui/react";
+import {Form, Input, Button, Textarea, addToast,cn} from "@heroui/react";
 import emailjs from "@emailjs/browser";
 import React from "react";
 import {MailIcon} from "@/components/icons";
@@ -20,19 +20,55 @@ export default function BlogPage() {
             e.currentTarget,
             "7ildZWFgI2SKIzXo4"
         ).then(
-            (result) => {
-                console.log("Email sent:", result.text);
+            () => {
                 setSubmitted("success");
                 setEmail("");
                 setName("");
                 setMessage("");
             },
-            (error) => {
-                console.error("Email error:", error.text);
+            () => {
                 setSubmitted("error");
             }
         );
     };
+
+    React.useEffect(() => {
+        if (submitted === "success") {
+            addToast({
+                title: "Success",
+                description: "Your message has been sent!",
+                timeout: 3000,
+                shouldShowTimeoutProgress: true,
+                color: "success",
+                classNames: {
+                    base: cn([
+                        "bg-success-50 dark:bg-success-100/20 shadow-sm",
+                        "flex flex-col items-start",
+                        "border-success-200 dark:border-success-100",
+                    ]),
+                    icon: "w-6 h-6 text-success-500 fill-current",
+                },
+            });
+            setSubmitted(null); // reset so it won’t fire again on re-render
+        } else if (submitted === "error") {
+            addToast({
+                title: "Oops!",
+                description: "Something went wrong, please try again.",
+                timeout: 3000,
+                shouldShowTimeoutProgress: true,
+                color: "danger",
+                classNames: {
+                    base: cn([
+                        "bg-danger-50 dark:bg-danger-100/20 shadow-sm",
+                        "flex flex-col items-start",
+                        "border-danger-200 dark:border-danger-100",
+                    ]),
+                    icon: "w-6 h-6 text-danger-500 fill-current",
+                },
+            });
+            setSubmitted(null);
+        }
+    }, [submitted]);
 
     return (
         <>
@@ -63,9 +99,7 @@ export default function BlogPage() {
                     type="email"
                     value={email}
                     onValueChange={setEmail}
-                    startContent={
-                        <MailIcon className="text-2xl text-default-400 pointer-events-none shrink-0"/>
-                    }
+                    startContent={<MailIcon className="text-2xl text-default-400 pointer-events-none shrink-0"/>}
                     className="mb-4"
                 />
 
@@ -87,13 +121,6 @@ export default function BlogPage() {
                     </Button>
                 </div>
             </Form>
-
-            {submitted === "success" && (
-                <p className="text-green-500 mt-4">Your message has been sent!</p>
-            )}
-            {submitted === "error" && (
-                <p className="text-red-500 mt-4">Something went wrong, please try again.</p>
-            )}
         </>
     );
 }
