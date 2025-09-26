@@ -7,7 +7,7 @@ export default function SplitImage() {
     const imageUrl = "/images/sehaj.jpg";
 
     return (
-        <div className="relative w-full h-screen flex bg-black overflow-hidden">
+        <div className="relative w-full h-screen flex  overflow-hidden">
 
             {/* Right Half slides in first */}
             <motion.div
