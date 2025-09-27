@@ -84,10 +84,8 @@ export default function BlogPage() {
                     name="name"
                     placeholder="Enter your name"
                     type="text"
-                    
                     value={name}
                     onValueChange={setName}
-                    
                     className="mb-4"
                     classNames={{
                         inputWrapper: "border light:border-black/10 dark:border-white/10 rounded-md",
@@ -100,6 +98,7 @@ export default function BlogPage() {
                     isRequired
                     errorMessage="Please enter a valid email"
                     label="Email"
+                    //color="primary"
                     labelPlacement="outside"
                     name="email"
                     placeholder="Enter your email"
