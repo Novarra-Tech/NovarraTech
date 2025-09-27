@@ -10,9 +10,9 @@ export default function SplitImage() {
     <div className="relative w-full h-screen overflow-hidden">
 
       <motion.div
-        initial={{ y: "150%" }}
-        animate={{ y: "0%" }}
-        transition={{ duration: 2.2, ease: "easeOut" }}
+        initial={{ y: "150%" ,opacity: 0 }}
+        animate={{ y: "0%", opacity: 1 }}
+        transition={{ duration: 1.1, ease: "easeInOut" }}
         className="absolute top-0 left-0 w-1/3 h-4/5 overflow-hidden"
       >
         <div className="absolute inset-0 clip-left">
@@ -23,7 +23,7 @@ export default function SplitImage() {
       <motion.div
         initial={{ y: "-125%" }}
         animate={{ y: "0%" }}
-        transition={{ duration: 2.2, ease: "easeOut" }}
+        transition={{ duration: 1.1, ease: "easeInOut" ,delay: 1.1 }}
         className="absolute top-0 left-33% w-1/3 h-4/5 overflow-hidden"
       >
         <div className="absolute inset-0 clip-middle">
@@ -34,7 +34,7 @@ export default function SplitImage() {
       <motion.div
         initial={{ y: "150%" }}
         animate={{ y: "0%"}}
-        transition={{ duration: 2.2, ease: "easeOut" , delay: 0.4}}
+        transition={{ duration: 1.1, ease: "easeInOut" , delay: 2.2}}
         className="absolute top-0 left-66% w-1/3 h-4/5 overflow-hidden "
       >
         <div className="absolute inset-0 clip-right">

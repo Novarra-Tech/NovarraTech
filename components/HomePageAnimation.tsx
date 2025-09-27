@@ -3,6 +3,7 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
+import Stats from "three/examples/jsm/libs/stats.module.js";
 import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
 import { TessellateModifier } from "three/examples/jsm/modifiers/TessellateModifier.js";
 import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
@@ -29,7 +30,7 @@ export default function HomePageAnimation() {
 
         function init(font) {
             camera = new THREE.PerspectiveCamera(40, WIDTH / HEIGHT, 1, 10000);
-            camera.position.set(-100, 0, 1000);
+            camera.position.set(-100, 100, 200);
 
             scene = new THREE.Scene();
             scene.background = new THREE.Color(0x050505);

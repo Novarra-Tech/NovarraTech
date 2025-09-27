@@ -3,7 +3,7 @@ import {title} from "@/components/primitives";
 import {Form, Input, Button, Textarea, addToast,cn} from "@heroui/react";
 import emailjs from "@emailjs/browser";
 import React from "react";
-import {MailIcon} from "@/components/icons";
+import {MailIcon} from "@/components/Icons";
 
 export default function BlogPage() {
     const [email, setEmail] = React.useState("");
