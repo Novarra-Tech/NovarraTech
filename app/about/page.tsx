@@ -57,41 +57,42 @@ export default function AboutPage() {
         <h1 className={title()}>About</h1>
       </div>
 
-      {team.map((m) => (
-        <Card
-          key={m.name}
-          radius="lg"
-          shadow="lg"
-          className="mx-auto mb-16 w-full max-w-5xl bg-content1/60 backdrop-blur-xl border light:border-black/10 dark:border-white/10"
-        >
-          <CardBody className="p-6 md:p-10">
-            <div className="flex flex-col md:flex-row md:items-center gap-8 md:gap-16">
-              <Link href={`/team/${encodeURIComponent(m.id)}`}>
-                <Image
-                  src={m.img}
-                  alt={`${m.name} headshot`}
-                  width={224}
-                  height={288}
-                  radius="lg"
-                  isBlurred
-                  classNames={{
-                    wrapper: "shrink-0 rounded-2xl bg-white/20 backdrop-blur-3xl border light:border-black dark:border-white/10",
-                    img: "object-cover",
-                  }}
-                />
-              </Link>
+      <div className="flex  justify-center gap-8">
+        {team.map((m) => (
+          <Card
+            key={m.name}
+            radius="lg"
+            shadow="lg"
+            className="w-full max-w-sm bg-content1/60 backdrop-blur-xl border light:border-black/10 dark:border-white/10"
+          >
+            <CardBody className="p-6 md:p-8">
+              <div className="flex flex-col items-center text-center">
+                <Link href={`/team/${encodeURIComponent(m.id)}`}>
+                  <Image
+                    src={m.img}
+                    alt={`${m.name} headshot`}
+                    width={224}
+                    height={288}
+                    radius="lg"
+                    isBlurred
+                    classNames={{
+                      wrapper:
+                        "mb-6 shrink-0 rounded-2xl bg-white/20 backdrop-blur-3xl border light:border-black dark:border-white/10",
+                      img: "object-cover",
+                    }}
+                  />
+                </Link>
 
-              <div className="text-left md:flex-1">
-                <h2 className="text-3xl font-semibold leading-tight">{m.name}</h2>
+                <h2 className="text-2xl font-semibold leading-tight">{m.name}</h2>
                 <p className="text-base text-gray-400 mt-1">{m.role}</p>
-                <p className="mt-4 text-lg leading-relaxed overflow-hidden text-ellipsis">
+                {/*<p className="mt-4 text-lg leading-relaxed overflow-hidden text-ellipsis">
                   {m.about}
-                </p>
+                </p>*/}
               </div>
-            </div>
-          </CardBody>
-        </Card>
-      ))}
+            </CardBody>
+          </Card>
+        ))}
+      </div>
     </section>
   );
 }
