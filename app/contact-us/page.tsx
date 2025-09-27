@@ -49,7 +49,7 @@ export default function BlogPage() {
                     icon: "w-6 h-6 text-success-500 fill-current",
                 },
             });
-            setSubmitted(null); // reset so it won’t fire again on re-render
+            setSubmitted(null);
         } else if (submitted === "error") {
             addToast({
                 title: "Oops!",
