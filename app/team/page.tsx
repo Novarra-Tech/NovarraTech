@@ -86,7 +86,7 @@ export default function AboutPage() {
                 <h2 className="text-2xl font-semibold leading-tight">{m.name}</h2>
                 <p className="text-base text-gray-400 mt-1">{m.role}</p>
                 {/*<p className="mt-4 text-lg leading-relaxed overflow-hidden text-ellipsis">
-                  {m.about}
+                  {m.team}
                 </p>*/}
               </div>
             </CardBody>
