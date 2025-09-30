@@ -1,159 +1,129 @@
-"use client";
+'use client';
 
-import { useEffect, useRef } from "react";
-import * as THREE from "three";
+import React, { useEffect, useRef } from 'react';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
+import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
-import Stats from "three/examples/jsm/libs/stats.module.js";
-import { TrackballControls } from "three/examples/jsm/controls/TrackballControls.js";
-import { TessellateModifier } from "three/examples/jsm/modifiers/TessellateModifier.js";
-import { FontLoader } from "three/examples/jsm/loaders/FontLoader.js";
-import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
+const HomePageAnimation: React.FC = () => {
+    const mountRef = useRef<HTMLDivElement | null>(null);
 
-export default function HomePageAnimation() {
-    const containerRef = useRef<HTMLDivElement | null>(null);
+    // Scene objects
+    let scene: THREE.Scene;
+    let camera: THREE.PerspectiveCamera;
+    let renderer: THREE.WebGLRenderer;
+    let orbitControls: OrbitControls;
+    let torus: THREE.Mesh<THREE.TorusGeometry, THREE.MeshStandardMaterial>;
+    let spheres: THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial>[] = [];
+    let helloWorldText: THREE.Mesh<TextGeometry, THREE.MeshStandardMaterial> | null = null;
 
     useEffect(() => {
-        let renderer: THREE.WebGLRenderer,
-            scene: THREE.Scene,
-            camera: THREE.PerspectiveCamera,
-            controls: TrackballControls,
-            mesh: THREE.Mesh,
-            uniforms: any;
-
-        const WIDTH = window.innerWidth;
-        const HEIGHT = window.innerHeight;
-
-        const loader = new FontLoader();
-        loader.load("fonts/Kode Mono SemiBold_Regular.json", function (font) {
-            init(font);
-        });
-
-        function init(font) {
-            camera = new THREE.PerspectiveCamera(40, WIDTH / HEIGHT, 1, 10000);
-            camera.position.set(-100, 100, 200);
-
-            scene = new THREE.Scene();
-            scene.background = new THREE.Color(0x050505);
-
-            let geometry = new TextGeometry("Infinite Innovations. Endless Possibilities. Limitless Future.", {
-                font,
-                size: 40,
-                depth: 5,
-                curveSegments: 3,
-                bevelThickness: 2,
-                bevelSize: 1,
-                bevelEnabled: true,
-            });
-
-            geometry.center();
-
-            const tessellateModifier = new TessellateModifier(8, 6);
-            geometry = tessellateModifier.modify(geometry);
-
-            const numFaces = geometry.attributes.position.count / 3;
-            const colors = new Float32Array(numFaces * 3 * 3);
-            const displacement = new Float32Array(numFaces * 3 * 3);
-
-            const color = new THREE.Color();
-
-            for (let f = 0; f < numFaces; f++) {
-                const index = 9 * f;
-
-                const h = 0.2 * Math.random();
-                const s = 0.5 + 0.5 * Math.random();
-                const l = 0.5 + 0.5 * Math.random();
-
-                color.setHSL(h, s, l);
-
-                const d = 10 * (0.5 - Math.random());
-
-                for (let i = 0; i < 3; i++) {
-                    colors[index + 3 * i] = color.r;
-                    colors[index + 3 * i + 1] = color.g;
-                    colors[index + 3 * i + 2] = color.b;
-
-                    displacement[index + 3 * i] = d;
-                    displacement[index + 3 * i + 1] = d;
-                    displacement[index + 3 * i + 2] = d;
-                }
-            }
-
-            geometry.setAttribute("customColor", new THREE.BufferAttribute(colors, 3));
-            geometry.setAttribute(
-                "displacement",
-                new THREE.BufferAttribute(displacement, 3)
-            );
-
-            uniforms = {
-                amplitude: { value: 0.0 },
-            };
-
-            const shaderMaterial = new THREE.ShaderMaterial({
-                uniforms,
-                vertexShader: `
-          uniform float amplitude;
-          attribute vec3 displacement;
-          attribute vec3 customColor;
-          varying vec3 vColor;
-
-          void main() {
-            vec3 newPosition = position + normal * amplitude * displacement;
-            vColor = customColor;
-            gl_Position = projectionMatrix * modelViewMatrix * vec4(newPosition, 1.0);
-          }
-        `,
-                fragmentShader: `
-          varying vec3 vColor;
-
-          void main() {
-            gl_FragColor = vec4(vColor, 1.0);
-          }
-        `,
-            });
-
-            mesh = new THREE.Mesh(geometry, shaderMaterial);
-            scene.add(mesh);
-
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setPixelRatio(window.devicePixelRatio);
-            renderer.setSize(WIDTH, HEIGHT);
-            renderer.setAnimationLoop(animate);
-
-            if (containerRef.current) {
-                containerRef.current.innerHTML = "";
-                containerRef.current.appendChild(renderer.domElement);
-            }
-
-            controls = new TrackballControls(camera, renderer.domElement);
-
-
-            window.addEventListener("resize", onWindowResize);
-        }
-
-        function onWindowResize() {
-            if (!camera || !renderer) return;
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
-        }
-
-        function animate() {
-            render();
-        }
-
-        function render() {
-            const time = Date.now() * 0.001;
-            if (uniforms) uniforms.amplitude.value = 1.0 + Math.sin(time * 0.5);
-            if (controls) controls.update();
-            if (renderer && scene && camera) renderer.render(scene, camera);
-        }
-
+        init();
         return () => {
-            window.removeEventListener("resize", onWindowResize);
-            if (renderer) renderer.dispose();
-            if (containerRef.current) containerRef.current.innerHTML = "";
+            cleanup();
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
-    return <div ref={containerRef} className="w-full h-screen" />;
-}
+    const init = () => {
+        // Scene
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x000000);
+
+        // Camera
+        camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(0, 0, 6); // Slightly above and away
+        camera.lookAt(0, 0, 0);
+
+        // Renderer
+        renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        mountRef.current?.appendChild(renderer.domElement);
+
+        // OrbitControls
+        orbitControls = new OrbitControls(camera, renderer.domElement);
+        orbitControls.enableDamping = true;
+        orbitControls.dampingFactor = 0.25;
+        orbitControls.screenSpacePanning = false;
+        orbitControls.enableZoom = false;
+
+        // Lights
+        const ambientLight = new THREE.AmbientLight(0x404040, 1);
+        scene.add(ambientLight);
+
+        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+        pointLight.position.set(0, 10, 0);
+        scene.add(pointLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+        directionalLight.position.set(0, 1, 1).normalize();
+        scene.add(directionalLight);
+
+        // 3D Text
+        const fontLoader = new FontLoader();
+        fontLoader.load('/fonts/Kode Mono SemiBold_Regular.json', (font) => {
+            const textGeometry = new TextGeometry('Novarra', {
+                font,
+                size: 1,
+                depth: 1,
+                curveSegments: 1,
+                bevelEnabled: false,
+                bevelThickness: 0.1,
+                bevelSize: 0.1,
+                bevelOffset: 0,
+                bevelSegments: 5,
+            });
+
+            // Center the text
+            textGeometry.computeBoundingBox();
+            if (textGeometry.boundingBox) {
+                const centerX = (textGeometry.boundingBox.max.x + textGeometry.boundingBox.min.x) / 2;
+                const centerY = (textGeometry.boundingBox.max.y + textGeometry.boundingBox.min.y) / 2;
+                const centerZ = (textGeometry.boundingBox.max.z + textGeometry.boundingBox.min.z) / 2;
+                textGeometry.translate(-centerX, -centerY, -centerZ);
+            }
+
+            const textMaterial = new THREE.MeshStandardMaterial({
+                color: 0xff0000,
+                emissive: 0xFFFFFF,
+                emissiveIntensity: 0.5
+            });
+
+            helloWorldText = new THREE.Mesh(textGeometry, textMaterial);
+            helloWorldText.position.set(0, 1, 0);
+            scene.add(helloWorldText);
+        });
+
+        window.addEventListener('resize', onWindowResize, false);
+        animate();
+    };
+
+    const animate = () => {
+        requestAnimationFrame(animate);
+
+        // Rotate spheres around center (circular motion)
+        const time = Date.now() * 0.001;
+        if (helloWorldText) helloWorldText.rotation.y += 0.005;
+
+
+        orbitControls.update();
+        renderer.render(scene, camera);
+    };
+
+    const onWindowResize = () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    const cleanup = () => {
+        window.removeEventListener('resize', onWindowResize);
+        if (mountRef.current) mountRef.current.removeChild(renderer.domElement);
+    };
+
+    return <div ref={mountRef} style={{ width: '100%', height: '93vh', overflow: 'hidden' }} />;
+};
+
+export default HomePageAnimation;
