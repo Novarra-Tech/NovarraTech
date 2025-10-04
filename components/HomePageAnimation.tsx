@@ -7,123 +7,143 @@ import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
 
 const HomePageAnimation: React.FC = () => {
-    const mountRef = useRef<HTMLDivElement | null>(null);
+  const mountRef = useRef<HTMLDivElement | null>(null);
 
-    // Scene objects
-    let scene: THREE.Scene;
-    let camera: THREE.PerspectiveCamera;
-    let renderer: THREE.WebGLRenderer;
-    let orbitControls: OrbitControls;
-    let torus: THREE.Mesh<THREE.TorusGeometry, THREE.MeshStandardMaterial>;
-    let spheres: THREE.Mesh<THREE.SphereGeometry, THREE.MeshStandardMaterial>[] = [];
-    let helloWorldText: THREE.Mesh<TextGeometry, THREE.MeshStandardMaterial> | null = null;
+  // Scene objects
+  let scene: THREE.Scene;
+  let camera: THREE.PerspectiveCamera;
+  let renderer: THREE.WebGLRenderer;
+  let orbitControls: OrbitControls;
+  let helloWorldText: THREE.Mesh | null = null;
 
-    useEffect(() => {
-        init();
-        return () => {
-            cleanup();
-        };
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+  useEffect(() => {
+    init();
+    return () => cleanup();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
-    const init = () => {
-        // Scene
-        scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x000000);
+  const init = () => {
+    // Scene
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
 
-        // Camera
-        camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-        camera.position.set(0, 0, 6); // Slightly above and away
-        camera.lookAt(0, 0, 0);
+    // Camera
+    camera = new THREE.PerspectiveCamera(
+      50,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      1000
+    );
+    camera.position.set(0, 0, 6);
+    camera.lookAt(0, 0, 0);
 
-        // Renderer
-        renderer = new THREE.WebGLRenderer({ antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setPixelRatio(window.devicePixelRatio);
-        mountRef.current?.appendChild(renderer.domElement);
+    // Renderer
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setClearColor(0x000000, 1);
+    renderer.shadowMap.enabled = true;
+    mountRef.current?.appendChild(renderer.domElement);
 
-        // OrbitControls
-        orbitControls = new OrbitControls(camera, renderer.domElement);
-        orbitControls.enableDamping = true;
-        orbitControls.dampingFactor = 0.25;
-        orbitControls.screenSpacePanning = false;
-        orbitControls.enableZoom = false;
+    // Controls
+    orbitControls = new OrbitControls(camera, renderer.domElement);
+    orbitControls.enableDamping = true;
+    orbitControls.dampingFactor = 0.25;
+    orbitControls.screenSpacePanning = false;
+    orbitControls.enableZoom = false;
 
-        // Lights
-        const ambientLight = new THREE.AmbientLight(0x404040, 1);
-        scene.add(ambientLight);
+    // Lights
+    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
-        const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-        pointLight.position.set(0, 10, 0);
-        scene.add(pointLight);
+    const key = new THREE.DirectionalLight(0xffffff, 1.0);
+    key.position.set(2, 3, 5);
+    key.castShadow = true;
+    scene.add(key);
 
-        const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
-        directionalLight.position.set(0, 1, 1).normalize();
-        scene.add(directionalLight);
+    const rim = new THREE.DirectionalLight(0xffffff, 0.6);
+    rim.position.set(-3, 2, -4);
+    scene.add(rim);
 
-        // 3D Text
-        const fontLoader = new FontLoader();
-        fontLoader.load('/fonts/Kode Mono SemiBold_Regular.json', (font) => {
-            const textGeometry = new TextGeometry('Novarra', {
-                font,
-                size: 1,
-                depth: 1,
-                curveSegments: 1,
-                bevelEnabled: false,
-                bevelThickness: 0.1,
-                bevelSize: 0.1,
-                bevelOffset: 0,
-                bevelSegments: 5,
-            });
+    // 3D Text
+    const fontLoader = new FontLoader();
+    fontLoader.load('/fonts/helvetiker_bold.typeface.json', (font) => {
+      const textGeometry = new TextGeometry('Novarra', {
+        font,
+        size: 1,
+        depth: 0.4,
+        curveSegments: 6,
+        bevelEnabled: false
+      });
 
-            // Center the text
-            textGeometry.computeBoundingBox();
-            if (textGeometry.boundingBox) {
-                const centerX = (textGeometry.boundingBox.max.x + textGeometry.boundingBox.min.x) / 2;
-                const centerY = (textGeometry.boundingBox.max.y + textGeometry.boundingBox.min.y) / 2;
-                const centerZ = (textGeometry.boundingBox.max.z + textGeometry.boundingBox.min.z) / 2;
-                textGeometry.translate(-centerX, -centerY, -centerZ);
-            }
+      // Normalize/center and recompute normals
+      textGeometry.computeBoundingBox();
+      if (textGeometry.boundingBox) {
+        const center = new THREE.Vector3();
+        textGeometry.boundingBox.getCenter(center);
+        textGeometry.translate(-center.x, -center.y, -center.z);
+      }
+      textGeometry.computeVertexNormals(); // important for solid lighting
 
-            const textMaterial = new THREE.MeshStandardMaterial({
-                color: 0xff0000,
-                emissive: 0xFFFFFF,
-                emissiveIntensity: 0.5
-            });
+      // OPAQUE materials (no transparency, front faces only)
+      const frontMat = new THREE.MeshPhongMaterial({
+        color: 0x81a6ccff,
+        specular: 0x222222,
+        shininess: 60,
+        side: THREE.FrontSide, // do not render back faces
+        transparent: false,
+        depthTest: true,
+        depthWrite: true
+      });
 
-            helloWorldText = new THREE.Mesh(textGeometry, textMaterial);
-            helloWorldText.position.set(0, 1, 0);
-            scene.add(helloWorldText);
-        });
+      const sideMat = new THREE.MeshPhongMaterial({
+        color: 0xb5b5b5,       // subtle contrast for the sides
+        specular: 0x111111,
+        shininess: 20,
+        side: THREE.FrontSide,
+        transparent: false,
+        depthTest: true,
+        depthWrite: true
+      });
 
-        window.addEventListener('resize', onWindowResize, false);
-        animate();
-    };
+      // TextGeometry defines groups for front/sides -> pass an array
+      helloWorldText = new THREE.Mesh(textGeometry, [frontMat, sideMat]);
+      helloWorldText.castShadow = true;
+      helloWorldText.receiveShadow = false;
+      helloWorldText.position.set(0, 0.6, 0);
+      scene.add(helloWorldText);
+    });
 
-    const animate = () => {
-        requestAnimationFrame(animate);
+    window.addEventListener('resize', onWindowResize, false);
+    animate();
+  };
 
-        // Rotate spheres around center (circular motion)
-        const time = Date.now() * 0.001;
-        if (helloWorldText) helloWorldText.rotation.y += 0.005;
+  const animate = () => {
+    requestAnimationFrame(animate);
 
+    if (helloWorldText) {
+      helloWorldText.rotation.y += 0.005;
+    }
 
-        orbitControls.update();
-        renderer.render(scene, camera);
-    };
+    orbitControls.update();
+    renderer.render(scene, camera);
+  };
 
-    const onWindowResize = () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    };
+  const onWindowResize = () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  };
 
-    const cleanup = () => {
-        window.removeEventListener('resize', onWindowResize);
-        if (mountRef.current) mountRef.current.removeChild(renderer.domElement);
-    };
+  const cleanup = () => {
+    window.removeEventListener('resize', onWindowResize);
+    if (mountRef.current && renderer) {
+      mountRef.current.removeChild(renderer.domElement);
+    }
+  };
 
-    return <div ref={mountRef} style={{ width: '100%', height: '93vh', overflow: 'hidden' }} />;
+  return (
+    <div ref={mountRef} style={{ width: '100%', height: '93vh', overflow: 'hidden' }} />
+  );
 };
 
 export default HomePageAnimation;
