@@ -57,7 +57,7 @@ export default function ServicesPage() {
             isHoverable
             className="border border-border"
           >
-            <CardHeader className="flex flex-col items-center text-center space-y-3 pt-6">
+            <CardHeader className="flex flex-col items-center text-center">
               {service.icon}
               <h2 className="text-xl font-semibold">{service.title}</h2>
             </CardHeader>
@@ -67,7 +67,6 @@ export default function ServicesPage() {
               </p>
             </CardBody>
             <CardFooter className="px-6 pb-6">
-              {/* optional: could put a “Learn more” link or button */}
             </CardFooter>
           </Card>
         ))}
