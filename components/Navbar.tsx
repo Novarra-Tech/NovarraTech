@@ -1,3 +1,4 @@
+'use client';
 import {
     Navbar as HeroUINavbar,
     NavbarContent,
@@ -13,6 +14,7 @@ import {Link} from "@heroui/link";
 import {Input} from "@heroui/input";
 import {link as linkStyles} from "@heroui/theme";
 import NextLink from "next/link";
+import React, { useEffect, useRef } from 'react';
 import clsx from "clsx";
 
 import {siteConfig} from "@/config/site";
@@ -26,6 +28,10 @@ import {
 } from "@/components/Icons";
 
 export const Navbar = () => {
+
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+
+
     /*const searchInput = (
       <Input
         aria-label="Search"
@@ -48,8 +54,12 @@ export const Navbar = () => {
     );*/
 
     return (
-        <HeroUINavbar maxWidth="xl" position="static" shouldHideOnScroll>
+        <HeroUINavbar onMenuOpenChange={setIsMenuOpen} maxWidth="xl" position="static" shouldHideOnScroll>
             <NavbarContent className="basis-1/5 sm:basis-full" justify="center">
+                <NavbarMenuToggle
+                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                    className="sm:hidden"
+                />
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
                     <NextLink className="flex justify-start items-center gap-1" href="/">
                         <Logo/>
