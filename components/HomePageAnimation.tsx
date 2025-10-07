@@ -130,11 +130,17 @@ const HomePageAnimation: React.FC = () => {
     };
 
     const onWindowResize = () => {
-        if (!cameraRef.current || !rendererRef.current) return;
-        cameraRef.current.aspect = window.innerWidth / window.innerHeight;
-        cameraRef.current.updateProjectionMatrix();
-        rendererRef.current.setSize(window.innerWidth, window.innerHeight);
-    };
+    if (!cameraRef.current || !rendererRef.current) return;
+    cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+    cameraRef.current.updateProjectionMatrix();
+    rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+
+    if (textRef.current) {
+        const scale = Math.max(0.5, Math.min(window.innerWidth / 1700, 2));
+        textRef.current.scale.set(scale, scale, scale);
+    }
+};
+
 
     const cleanup = () => {
         window.removeEventListener('resize', onWindowResize);
