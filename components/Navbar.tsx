@@ -104,6 +104,7 @@ export const Navbar = () => {
                                 )}
                                 color="foreground"
                                 href={item.href}
+                                onClick={() => setIsMenuOpen(false)}
                             >
                                 {item.label}
                             </NextLink>
