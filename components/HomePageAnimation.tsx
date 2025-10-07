@@ -107,10 +107,15 @@ const HomePageAnimation: React.FC = () => {
             const helloWorldText = new THREE.Mesh(textGeometry, [frontMat, sideMat]);
             helloWorldText.castShadow = true;
             helloWorldText.position.set(0, 0.6, 0);
-            textRef.current = helloWorldText;
 
+            // ✅ Scale based on initial screen size
+            const initialScale = Math.max(0.5, Math.min(window.innerWidth / 1700, 2));
+            helloWorldText.scale.set(initialScale, initialScale, initialScale);
+
+            textRef.current = helloWorldText;
             scene.add(helloWorldText);
         });
+
 
         window.addEventListener('resize', onWindowResize);
         animate();
@@ -130,16 +135,16 @@ const HomePageAnimation: React.FC = () => {
     };
 
     const onWindowResize = () => {
-    if (!cameraRef.current || !rendererRef.current) return;
-    cameraRef.current.aspect = window.innerWidth / window.innerHeight;
-    cameraRef.current.updateProjectionMatrix();
-    rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+        if (!cameraRef.current || !rendererRef.current) return;
+        cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+        cameraRef.current.updateProjectionMatrix();
+        rendererRef.current.setSize(window.innerWidth, window.innerHeight);
 
-    if (textRef.current) {
-        const scale = Math.max(0.5, Math.min(window.innerWidth / 1700, 2));
-        textRef.current.scale.set(scale, scale, scale);
-    }
-};
+        if (textRef.current) {
+            const scale = Math.max(0.5, Math.min(window.innerWidth / 1700, 2));
+            textRef.current.scale.set(scale, scale, scale);
+        }
+    };
 
 
     const cleanup = () => {
