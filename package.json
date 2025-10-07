@@ -51,6 +51,7 @@
     "@heroui/toast": "2.0.16",
     "@heroui/tooltip": "2.2.23",
     "@heroui/user": "2.2.21",
+    "@nextui-org/react": "^2.6.11",
     "@react-aria/ssr": "3.9.10",
     "@react-aria/visually-hidden": "3.8.27",
     "clsx": "2.1.1",

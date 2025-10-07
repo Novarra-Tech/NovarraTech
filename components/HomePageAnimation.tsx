@@ -5,145 +5,145 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader';
 import { TextGeometry } from 'three/examples/jsm/geometries/TextGeometry';
+import { useTheme } from "next-themes";
 
 const HomePageAnimation: React.FC = () => {
-  const mountRef = useRef<HTMLDivElement | null>(null);
+    const mountRef = useRef<HTMLDivElement | null>(null);
+    const { theme } = useTheme();
 
-  // Scene objects
-  let scene: THREE.Scene;
-  let camera: THREE.PerspectiveCamera;
-  let renderer: THREE.WebGLRenderer;
-  let orbitControls: OrbitControls;
-  let helloWorldText: THREE.Mesh | null = null;
+    // Store scene and renderer persistently across renders
+    const sceneRef = useRef<THREE.Scene | null>(null);
+    const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+    const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
+    const controlsRef = useRef<OrbitControls | null>(null);
+    const textRef = useRef<THREE.Mesh | null>(null);
 
-  useEffect(() => {
-    init();
-    return () => cleanup();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    useEffect(() => {
+        init();
+        return cleanup;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-  const init = () => {
-    // Scene
-    scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
+    // ✅ Update background color dynamically when theme changes
+    useEffect(() => {
+        if (sceneRef.current) {
+            const bgColor = theme === "dark" ? 0x000000 : 0x7393B3;
+            sceneRef.current.background = new THREE.Color(bgColor);
+        }
+    }, [theme]);
 
-    // Camera
-    camera = new THREE.PerspectiveCamera(
-      50,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      1000
-    );
-    camera.position.set(0, 0, 6);
-    camera.lookAt(0, 0, 0);
+    const init = () => {
+        const scene = new THREE.Scene();
+        sceneRef.current = scene;
 
-    // Renderer
-    renderer = new THREE.WebGLRenderer({ antialias: true });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.setClearColor(0x000000, 1);
-    renderer.shadowMap.enabled = true;
-    mountRef.current?.appendChild(renderer.domElement);
+        const bgColor = theme === "dark" ? 0x000000 : 0x7393B3;
+        scene.background = new THREE.Color(bgColor);
 
-    // Controls
-    orbitControls = new OrbitControls(camera, renderer.domElement);
-    orbitControls.enableDamping = true;
-    orbitControls.dampingFactor = 0.25;
-    orbitControls.screenSpacePanning = false;
-    orbitControls.enableZoom = false;
+        const camera = new THREE.PerspectiveCamera(
+            50,
+            window.innerWidth / window.innerHeight,
+            0.1,
+            1000
+        );
+        camera.position.set(0, 0, 6);
+        camera.lookAt(0, 0, 0);
+        cameraRef.current = camera;
 
-    // Lights
-    scene.add(new THREE.AmbientLight(0xffffff, 0.5));
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.shadowMap.enabled = true;
+        rendererRef.current = renderer;
+        mountRef.current?.appendChild(renderer.domElement);
 
-    const key = new THREE.DirectionalLight(0xffffff, 1.0);
-    key.position.set(2, 3, 5);
-    key.castShadow = true;
-    scene.add(key);
+        const orbitControls = new OrbitControls(camera, renderer.domElement);
+        orbitControls.enableDamping = true;
+        orbitControls.dampingFactor = 0.25;
+        orbitControls.enableZoom = false;
+        controlsRef.current = orbitControls;
 
-    const rim = new THREE.DirectionalLight(0xffffff, 0.6);
-    rim.position.set(-3, 2, -4);
-    scene.add(rim);
+        // Lights
+        scene.add(new THREE.AmbientLight(0xffffff, 0.5));
 
-    // 3D Text
-    const fontLoader = new FontLoader();
-    fontLoader.load('/fonts/helvetiker_bold.typeface.json', (font) => {
-      const textGeometry = new TextGeometry('Novarra', {
-        font,
-        size: 1,
-        depth: 0.4,
-        curveSegments: 6,
-        bevelEnabled: false
-      });
+        const key = new THREE.DirectionalLight(0xffffff, 1.0);
+        key.position.set(2, 3, 5);
+        key.castShadow = true;
+        scene.add(key);
 
-      // Normalize/center and recompute normals
-      textGeometry.computeBoundingBox();
-      if (textGeometry.boundingBox) {
-        const center = new THREE.Vector3();
-        textGeometry.boundingBox.getCenter(center);
-        textGeometry.translate(-center.x, -center.y, -center.z);
-      }
-      textGeometry.computeVertexNormals(); // important for solid lighting
+        const rim = new THREE.DirectionalLight(0xffffff, 0.6);
+        rim.position.set(-3, 2, -4);
+        scene.add(rim);
 
-      // OPAQUE materials (no transparency, front faces only)
-      const frontMat = new THREE.MeshPhongMaterial({
-        color: 0x81a6ccff,
-        specular: 0x222222,
-        shininess: 60,
-        side: THREE.FrontSide, // do not render back faces
-        transparent: false,
-        depthTest: true,
-        depthWrite: true
-      });
+        // Load text
+        const fontLoader = new FontLoader();
+        fontLoader.load('/fonts/helvetiker_bold.typeface.json', (font) => {
+            const textGeometry = new TextGeometry('Novarra', {
+                font,
+                size: 1,
+                depth: 0.4,
+                curveSegments: 6,
+                bevelEnabled: false,
+            });
 
-      const sideMat = new THREE.MeshPhongMaterial({
-        color: 0xb5b5b5,       // subtle contrast for the sides
-        specular: 0x111111,
-        shininess: 20,
-        side: THREE.FrontSide,
-        transparent: false,
-        depthTest: true,
-        depthWrite: true
-      });
+            textGeometry.computeBoundingBox();
+            if (textGeometry.boundingBox) {
+                const center = new THREE.Vector3();
+                textGeometry.boundingBox.getCenter(center);
+                textGeometry.translate(-center.x, -center.y, -center.z);
+            }
 
-      // TextGeometry defines groups for front/sides -> pass an array
-      helloWorldText = new THREE.Mesh(textGeometry, [frontMat, sideMat]);
-      helloWorldText.castShadow = true;
-      helloWorldText.receiveShadow = false;
-      helloWorldText.position.set(0, 0.6, 0);
-      scene.add(helloWorldText);
-    });
+            const frontMat = new THREE.MeshPhongMaterial({
+                color: 0x81a6cc,
+                specular: 0x222222,
+                shininess: 60,
+            });
 
-    window.addEventListener('resize', onWindowResize, false);
-    animate();
-  };
+            const sideMat = new THREE.MeshPhongMaterial({
+                color: 0xb5b5b5,
+                specular: 0x111111,
+                shininess: 20,
+            });
 
-  const animate = () => {
-    requestAnimationFrame(animate);
+            const helloWorldText = new THREE.Mesh(textGeometry, [frontMat, sideMat]);
+            helloWorldText.castShadow = true;
+            helloWorldText.position.set(0, 0.6, 0);
+            textRef.current = helloWorldText;
 
-    if (helloWorldText) {
-      helloWorldText.rotation.y += 0.005;
-    }
+            scene.add(helloWorldText);
+        });
 
-    orbitControls.update();
-    renderer.render(scene, camera);
-  };
+        window.addEventListener('resize', onWindowResize);
+        animate();
+    };
 
-  const onWindowResize = () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  };
+    const animate = () => {
+        requestAnimationFrame(animate);
 
-  const cleanup = () => {
-    window.removeEventListener('resize', onWindowResize);
-    if (mountRef.current && renderer) {
-      mountRef.current.removeChild(renderer.domElement);
-    }
-  };
+        if (textRef.current) {
+            textRef.current.rotation.y += 0.005;
+        }
 
-  return (
-    <div ref={mountRef} style={{ width: '100%', height: '93vh', overflow: 'hidden' }} />
-  );
+        controlsRef.current?.update();
+        if (rendererRef.current && sceneRef.current && cameraRef.current) {
+            rendererRef.current.render(sceneRef.current, cameraRef.current);
+        }
+    };
+
+    const onWindowResize = () => {
+        if (!cameraRef.current || !rendererRef.current) return;
+        cameraRef.current.aspect = window.innerWidth / window.innerHeight;
+        cameraRef.current.updateProjectionMatrix();
+        rendererRef.current.setSize(window.innerWidth, window.innerHeight);
+    };
+
+    const cleanup = () => {
+        window.removeEventListener('resize', onWindowResize);
+        if (mountRef.current && rendererRef.current) {
+            mountRef.current.removeChild(rendererRef.current.domElement);
+        }
+    };
+
+    return <div ref={mountRef} style={{ width: '100%', height: '93vh', overflow: 'hidden' }} />;
 };
 
 export default HomePageAnimation;
