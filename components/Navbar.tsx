@@ -54,10 +54,10 @@ export const Navbar = () => {
     return (
         <HeroUINavbar isMenuOpen={isMenuOpen}
                       onMenuOpenChange={setIsMenuOpen} maxWidth="xl" position="static" shouldHideOnScroll>
-            <NavbarContent className="basis-1/5 sm:basis-full" justify="center">
+            <NavbarContent className="basis-1/5 lg:basis-full" justify="center">
                 <NavbarMenuToggle
                     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                    className="sm:hidden"
+                    className="lg:hidden"
                 />
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
                     <Link className="flex justify-start items-center gap-1" href="/">
