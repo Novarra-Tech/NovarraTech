@@ -17,12 +17,12 @@ import clsx from "clsx";
 
 import {siteConfig} from "@/config/site";
 import {
-    TwitterIcon,
-    GithubIcon,
-    DiscordIcon,
-    HeartFilledIcon,
-    SearchIcon,
-    Logo,
+//     TwitterIcon,
+//     GithubIcon,
+//     DiscordIcon,
+//     HeartFilledIcon,
+//     SearchIcon,
+Logo,
 } from "@/components/Icons";
 
 export const Navbar = () => {
