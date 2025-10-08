@@ -16,14 +16,14 @@ import React, { useEffect, useRef } from 'react';
 import clsx from "clsx";
 
 import {siteConfig} from "@/config/site";
-// import {
+import {
 //     TwitterIcon,
 //     GithubIcon,
 //     DiscordIcon,
 //     HeartFilledIcon,
 //     SearchIcon,
-//     Logo,
-// } from "@/components/Icons";
+Logo,
+} from "@/components/Icons";
 
 export const Navbar = () => {
 
