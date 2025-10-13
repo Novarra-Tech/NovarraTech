@@ -8,7 +8,14 @@ import {
   CardFooter,
 } from "@heroui/react";
 
-function Section({ kicker, heading, description, children }) {
+type SectionProps = {
+  kicker: string;
+  heading: string;
+  description?: string;
+  children: React.ReactNode;
+};
+
+function Section({ kicker, heading, description, children }: SectionProps) {
   return (
     <section className="mt-16 text-center">
       <p className="text-xs tracking-widest uppercase text-primary/80 font-semibold">{kicker}</p>
@@ -21,7 +28,12 @@ function Section({ kicker, heading, description, children }) {
   );
 }
 
-function ServiceCard({ title, description }) {
+interface ServiceCardProps {
+  title: string;
+  description: string;
+}
+
+function ServiceCard({ title, description }: ServiceCardProps) {
   return (
     <Card
       shadow="sm"
