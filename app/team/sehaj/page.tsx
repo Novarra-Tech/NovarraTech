@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Card, CardBody } from "@heroui/card";
 
 export default function SplitImage() {
-  const imageUrl = "/images/sehaj.JPG";
+  const imageUrl = "/images/sehaj.jpg";
   const about =
     "Sehaj is a senior Computer Science student with expertise in programming and cybersecurity. " +
     "He has hands-on experience as a full stack developer at a tech startup that integrates real estate and AI, giving him valuable insight into building modern, innovative applications. " +
