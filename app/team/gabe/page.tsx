@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Card, CardBody } from "@heroui/card";
 
 export default function SplitImage() {
-  const imageUrl = "/images/image.png";
+  const imageUrl = "/images/GabeInfoPhoto.jpg";
   const about = "Gabriel is a senior Computer Science student and Audio Visual Technician at Adelphi University. " +
         "As part of his role, he manages classroom technology systems across campus, working with a dedicated IT team and external vendors to keep systems running seamlessly. " +
         "Gabriel also provides training for professors and academic professionals, helping them integrate technology confidently into their teaching" +
