@@ -102,7 +102,7 @@ export const Navbar = () => {
                                 )}
                                 color="foreground"
                                 href={item.href}
-                                //onPressChange={() => setIsMenuOpen(false)}
+                                onPress={() => setIsMenuOpen(false)}
                             >
                                 {item.label}
                             </Link>
