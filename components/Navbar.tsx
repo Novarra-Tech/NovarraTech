@@ -17,7 +17,6 @@ import clsx from "clsx";
 
 import {siteConfig} from "@/config/site";
 import {
-    // HI
 //     TwitterIcon,
 //     GithubIcon,
 //     DiscordIcon,
