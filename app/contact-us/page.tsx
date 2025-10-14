@@ -5,7 +5,6 @@ import {Form, Input, Button, Textarea, addToast, cn, Tabs, Tab, Card} from "@her
 import emailjs from "@emailjs/browser";
 import { MailIcon } from "@/components/Icons";
 
-// --- Data -------------------------------------------------------------------
 const AV_SOLUTIONS = [
   "Display Solutions",
   "Digital Signage / Digital Wall",
