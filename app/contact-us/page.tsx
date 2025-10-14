@@ -1,7 +1,17 @@
 "use client";
 
 import React from "react";
-import {Form, Input, Button, Textarea, addToast, cn, Tabs, Tab, Card} from "@heroui/react";
+import {
+  Form,
+  Input,
+  Button,
+  Textarea,
+  addToast,
+  cn,
+  Tabs,
+  Tab,
+  Card,
+} from "@heroui/react";
 import emailjs from "@emailjs/browser";
 import { MailIcon } from "@/components/Icons";
 
@@ -63,12 +73,19 @@ export default function ContactAndServices() {
   const [email, setEmail] = React.useState("");
   const [name, setName] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [submitted, setSubmitted] = React.useState<"success" | "error" | null>(null);
+  const [submitted, setSubmitted] = React.useState<"success" | "error" | null>(
+    null
+  );
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     emailjs
-      .sendForm("service_0j3des8", "template_f2jejbx", e.currentTarget, "7ildZWFgI2SKIzXo4")
+      .sendForm(
+        "service_0j3des8",
+        "template_f2jejbx",
+        e.currentTarget,
+        "7ildZWFgI2SKIzXo4"
+      )
       .then(
         () => {
           setSubmitted("success");
@@ -105,14 +122,17 @@ export default function ContactAndServices() {
 
   return (
     <div className="w-full px-6 py-10">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-8 max-w-7xl mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-[1fr_340px] gap-8 max-w-7xl mx-auto">
         {/* Left Side */}
-        <div className="md:col-span-3">
+        <div>
           <div className="rounded-3xl p-6 md:p-8 bg-transparent">
             <div className="mb-6">
-              <h1 className="text-3xl font-semibold tracking-tight">What We Do</h1>
+              <h1 className="text-3xl font-semibold tracking-tight">
+                What We Do
+              </h1>
               <p className="text-foreground/60 mt-1">
-                Explore our AV solutions, environments, and a broad range of services.
+                Explore our AV solutions, environments, and a broad range of
+                services.
               </p>
             </div>
 
@@ -137,7 +157,7 @@ export default function ContactAndServices() {
         </div>
 
         {/* Right Side */}
-        <div className="md:col-span-1">
+        <div>
           <Card className="p-5 rounded-2xl border border-white/10 bg-white/10 dark:bg-black/30 backdrop-blur-md shadow-lg">
             <h2 className="text-lg font-semibold mb-4">Request a quote</h2>
             <Form className="w-full" onSubmit={onSubmit}>
@@ -152,7 +172,8 @@ export default function ContactAndServices() {
                 onValueChange={setName}
                 className="mb-4"
                 classNames={{
-                  inputWrapper: "border light:border-black/10 dark:border-white/10 rounded-md",
+                  inputWrapper:
+                    "border light:border-black/10 dark:border-white/10 rounded-md",
                   input: "text-white",
                 }}
               />
@@ -167,10 +188,13 @@ export default function ContactAndServices() {
                 type="email"
                 value={email}
                 onValueChange={setEmail}
-                startContent={<MailIcon className="text-xl text-default-400 pointer-events-none shrink-0" />}
+                startContent={
+                  <MailIcon className="text-xl text-default-400 pointer-events-none shrink-0" />
+                }
                 className="mb-4"
                 classNames={{
-                  inputWrapper: "border light:border-black/10 dark:border-white/10 rounded-md",
+                  inputWrapper:
+                    "border light:border-black/10 dark:border-white/10 rounded-md",
                   input: "text-white",
                 }}
               />
@@ -186,7 +210,8 @@ export default function ContactAndServices() {
                 minRows={4}
                 className="mb-4 text-left"
                 classNames={{
-                  inputWrapper: "border light:border-black/10 dark:border-white/10 rounded-md",
+                  inputWrapper:
+                    "border light:border-black/10 dark:border-white/10 rounded-md",
                   input: "text-white",
                 }}
               />
