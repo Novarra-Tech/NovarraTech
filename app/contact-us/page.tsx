@@ -6,11 +6,11 @@ import {
   Input,
   Button,
   Textarea,
-  addToast,
   cn,
   Tabs,
   Tab,
   Card,
+  Alert,
 } from "@heroui/react";
 import emailjs from "@emailjs/browser";
 import { MailIcon } from "@/components/Icons";
@@ -73,9 +73,22 @@ export default function ContactAndServices() {
   const [email, setEmail] = React.useState("");
   const [name, setName] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [submitted, setSubmitted] = React.useState<"success" | "error" | null>(
-    null
-  );
+  const [alert, setAlert] = React.useState<{
+    color: "success" | "danger";
+    title: string;
+  } | null>(null);
+
+  const [isClosing, setIsClosing] = React.useState(false);
+
+  function showAlert(a: { color: "success" | "danger"; title: string }) {
+    setIsClosing(false);
+    setAlert(a);
+
+    const showMs = 3000;
+    const animMs = 300;
+    setTimeout(() => setIsClosing(true), showMs - animMs);
+    setTimeout(() => setAlert(null), showMs);
+  }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -88,37 +101,22 @@ export default function ContactAndServices() {
       )
       .then(
         () => {
-          setSubmitted("success");
           setEmail("");
           setName("");
           setMessage("");
+          showAlert({
+            color: "success",
+            title: "Your message has been sent successfully!",
+          });
         },
-        () => setSubmitted("error")
+        () => {
+          showAlert({
+            color: "danger",
+            title: "Something went wrong. Please try again.",
+          });
+        }
       );
   };
-
-  React.useEffect(() => {
-    if (!submitted) return;
-    addToast({
-      title: submitted === "success" ? "Success" : "Oops!",
-      description:
-        submitted === "success"
-          ? "Your message has been sent!"
-          : "Something went wrong, please try again.",
-      timeout: 3000,
-      shouldShowTimeoutProgress: true,
-      color: submitted === "success" ? "success" : "danger",
-      classNames: {
-        base: cn([
-          "shadow-sm flex flex-col items-start",
-          submitted === "success"
-            ? "bg-success-50 dark:bg-success-100/20"
-            : "bg-danger-50 dark:bg-danger-100/20",
-        ]),
-      },
-    });
-    setSubmitted(null);
-  }, [submitted]);
 
   return (
     <div className="w-full px-6 py-10">
@@ -230,6 +228,21 @@ export default function ContactAndServices() {
           </Card>
         </div>
       </div>
+
+      {alert && (
+        <div
+          className={cn(
+            "fixed bottom-6 left-1/2 -translate-x-1/2 z-50",
+            isClosing ? "animate-slide-down" : "animate-slide-up"
+          )}
+        >
+          <Alert
+            color={alert.color}
+            title={alert.title}
+            className="shadow-lg px-4 py-3 rounded-lg w-[300px] text-center"
+          />
+        </div>
+      )}
     </div>
   );
 }
