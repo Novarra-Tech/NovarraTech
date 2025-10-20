@@ -9,7 +9,7 @@ export default function Home() {
         <div>
             <HomePageAnimation/>
             {/*<div className="inline-block text-center justify-center">*/}
-            {/*    /!*<h1 className={title()}>Home</h1>*!/*/}
+            {/*  hi  /!*<h1 className={title()}>Home</h1>*!/*/}
 
             {/*</div>*/}
         </div>
