@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Card, CardBody } from "@heroui/card";
 
 export default function SplitImage() {
-  const imageUrl = "/images/image.png";
+  const imageUrl = "/images/Onkar.jpg";
   const about = "Onkar is a senior Computer Science student with deep expertise in programming and cybersecurity. " +
         "Skilled in multiple programming languages and experienced in research-driven projects, he brings a forward-thinking approach to technology solutions" + "He also leads a Help Desk team of IT service specialists within the Adelphi domain, where they monitor and assist over 100,000 users. " +
         "Through this leadership, Onkar ensures that organizations receive reliable support, consistent service standards, and an exceptional customer experience" +

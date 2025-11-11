@@ -25,7 +25,7 @@ const team: Member[] = [
             "Exposure to network engineering and cybersecurity further strengthens his ability to approach projects with technical depth and a security-first mindset" + "Recognized for his professionalism, Gabriel works directly with clients to ensure their needs are understood and their satisfaction is achieved. " +
             "His commitment to reliable, high-quality service makes him a trusted partner for both academic institutions and businesses"
         ,
-        img: "/images/GabeInfoPhoto.jpg",
+        img: "/images/Gabe.jpg",
         id: "gabe"
     },
 
@@ -36,7 +36,7 @@ const team: Member[] = [
             "He has hands-on experience as a full stack developer at a tech startup that integrates real estate and AI, giving him valuable insight into building modern, innovative applications." + "In addition to his development work, Sehaj is an Audio Visual Technician at Adelphi University, where he helps monitor and maintain classroom technology across campus. " +
             "His dual background in software development and AV systems allows him to approach challenges with both technical depth and practical problem-solving skills. " +
             "Sehaj's mix of programming expertise, cybersecurity knowledge, and real-world AV support experience makes him a versatile team member dedicated to delivering technology solutions that are secure, reliable, and user-friendly.",
-        img: "/images/sehaj.jpg",
+        img: "/images/Sehaj.jpg",
         id: "sehaj"
     },
 
@@ -47,7 +47,7 @@ const team: Member[] = [
             "Skilled in multiple programming languages and experienced in research-driven projects, he brings a forward-thinking approach to technology solutions" + "He also leads a Help Desk team of IT service specialists within the Adelphi domain, where they monitor and assist over 100,000 users. " +
             "Through this leadership, Onkar ensures that organizations receive reliable support, consistent service standards, and an exceptional customer experience" +
             "By combining technical knowledge with hands-on leadership, Onkar helps clients achieve technology goals with efficiency, security, and confidence",
-        img: "/images/image.png",
+        img: "/images/Onkar.jpg",
         id: "onkar"
     },
 ];
