@@ -27,7 +27,7 @@ const config = {
             light: {
                 layout: {},
                 colors: {
-                    background: "#7393B3", // Soft lavender
+                    background: "#0A1D37",// Soft lavender
                     loading: "#739B7F",
                     subheading: "#7C3AED", // Purple accents (formerly foreground)
                     heading: "#5B21B6", // Darker purple for headings
@@ -35,7 +35,7 @@ const config = {
                         DEFAULT: "#ffffffff",
                         foreground: "#000000",
                     },
-                    secondary: "#2d2d2dff",
+                    secondary: "#2d2d2dff", //ur mom gay
                     hover: "#E9D5FF", // Light purple hover effect
                     text: "#374151", // Dark gray text color for light mode
                 },
