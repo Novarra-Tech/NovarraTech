@@ -36,7 +36,7 @@ const team: Member[] = [
             "He has hands-on experience as a full stack developer at a tech startup that integrates real estate and AI, giving him valuable insight into building modern, innovative applications." + "In addition to his development work, Sehaj is an Audio Visual Technician at Adelphi University, where he helps monitor and maintain classroom technology across campus. " +
             "His dual background in software development and AV systems allows him to approach challenges with both technical depth and practical problem-solving skills. " +
             "Sehaj's mix of programming expertise, cybersecurity knowledge, and real-world AV support experience makes him a versatile team member dedicated to delivering technology solutions that are secure, reliable, and user-friendly.",
-        img: "/images/Sehaj.jpg",
+        img: "public/images/Sehaj.jpg",
         id: "sehaj"
     },
 
