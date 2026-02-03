@@ -38,7 +38,7 @@ function ServiceCard({ title, description }: ServiceCardProps) {
     <Card
       shadow="sm"
       radius="lg"
-      className="border border-border/60 text-center max-w-xs bg-white/80 backdrop-blur-sm transition-shadow"
+      className="border border-border/60 text-center max-w-xs backdrop-blur-sm transition-shadow"
     >
       <CardHeader className="flex flex-col items-center">
         <h3 className="text-lg font-semibold mt-2">{title}</h3>
@@ -134,7 +134,7 @@ export default function ServicesPage() {
             key={service.title}
             shadow="sm"
             radius="lg"
-            className="border border-border/60 text-center max-w-xs bg-white/80 backdrop-blur-sm transition-shadow"
+            className="border border-border/60 text-center max-w-xs backdrop-blur-sm transition-shadow"
           >
             <CardHeader className="flex flex-col items-center">
               <h3 className="text-lg font-semibold mt-2">{service.title}</h3>

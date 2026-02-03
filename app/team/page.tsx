@@ -25,7 +25,7 @@ const team: Member[] = [
             "Exposure to network engineering and cybersecurity further strengthens his ability to approach projects with technical depth and a security-first mindset" + "Recognized for his professionalism, Gabriel works directly with clients to ensure their needs are understood and their satisfaction is achieved. " +
             "His commitment to reliable, high-quality service makes him a trusted partner for both academic institutions and businesses"
         ,
-        img: "/images/Gabe.jpg",
+        img: "/images/Gabe.png",
         id: "gabe"
     },
 
