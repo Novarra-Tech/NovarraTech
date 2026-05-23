@@ -1,116 +1,92 @@
 'use client';
 
-import {title} from "@/components/primitives";
-import {Card, CardBody, Image} from "@heroui/react";
-import {motion} from "framer-motion";
-import Link from "next/link";
+import Image from 'next/image';
+import { motion } from 'framer-motion';
+import Link from 'next/link';
 
-
-type Member = {
-    name: string;
-    role: string;
-    about: string;
-    img: string;
-    id: string;
-};
-
-const team: Member[] = [
+const team = [
     {
-        name: "Gabriel Kaloo",
-        role: "Managing Partner, CEO",
-        about: "Gabriel is a senior Computer Science student and Audio Visual Technician at Adelphi University. " +
-            "As part of his role, he manages classroom technology systems across campus, working with a dedicated IT team and external vendors to keep systems running seamlessly. " +
-            "Gabriel also provides training for professors and academic professionals, helping them integrate technology confidently into their teaching" +
-            "Beyond his AV expertise, Gabriel brings extensive experience in Level 1 and Level 2 IT services. \n He has collaborated with high-profile corporate clients, delivering IT solutions that meet enterprise standards of performance and security. " +
-            "Exposure to network engineering and cybersecurity further strengthens his ability to approach projects with technical depth and a security-first mindset" + "Recognized for his professionalism, Gabriel works directly with clients to ensure their needs are understood and their satisfaction is achieved. " +
-            "His commitment to reliable, high-quality service makes him a trusted partner for both academic institutions and businesses"
-        ,
-        img: "/images/Gabe.png",
-        id: "gabe"
+        name: 'Gabriel Kaloo', role: 'CEO', title: 'Managing Partner',
+        about: 'Senior CS student and AV Technician at Adelphi University. Manages classroom systems, leads enterprise IT for high-profile clients, and brings a security-first mindset to every engagement.',
+        img: '/images/Gabe.png', id: 'gabe',
+        tags: ['AV Systems', 'IT Support', 'Cybersecurity'],
     },
-
     {
-        name: "Sehajveer Dhillon",
-        role: "Managing Partner, CIO",
-        about: "Sehaj is a senior Computer Science student with expertise in programming and cybersecurity. " +
-            "He has hands-on experience as a full stack developer at a tech startup that integrates real estate and AI, giving him valuable insight into building modern, innovative applications." + "In addition to his development work, Sehaj is an Audio Visual Technician at Adelphi University, where he helps monitor and maintain classroom technology across campus. " +
-            "His dual background in software development and AV systems allows him to approach challenges with both technical depth and practical problem-solving skills. " +
-            "Sehaj's mix of programming expertise, cybersecurity knowledge, and real-world AV support experience makes him a versatile team member dedicated to delivering technology solutions that are secure, reliable, and user-friendly.",
-        img: "/images/Sehaj.jpg",
-        id: "sehaj"
+        name: 'Sehajveer Dhillon', role: 'CIO', title: 'Managing Partner',
+        about: 'Senior CS student with full-stack dev experience at an AI/real-estate startup. Also an AV Technician at Adelphi — bridging software engineering and physical infrastructure.',
+        img: '/images/Sehaj.jpg', id: 'sehaj',
+        tags: ['Full Stack', 'Cybersecurity', 'AV Tech'],
     },
-
     {
-        name: "Onkar Dhillon",
-        role: "Managing Partner, COO",
-        about: "Onkar is a senior Computer Science student with deep expertise in programming and cybersecurity. " +
-            "Skilled in multiple programming languages and experienced in research-driven projects, he brings a forward-thinking approach to technology solutions" + "He also leads a Help Desk team of IT service specialists within the Adelphi domain, where they monitor and assist over 100,000 users. " +
-            "Through this leadership, Onkar ensures that organizations receive reliable support, consistent service standards, and an exceptional customer experience" +
-            "By combining technical knowledge with hands-on leadership, Onkar helps clients achieve technology goals with efficiency, security, and confidence",
-        img: "/images/Onkar.jpg",
-        id: "onkar"
+        name: 'Onkar Dhillon', role: 'COO', title: 'Managing Partner',
+        about: 'Senior CS student leading a Help Desk team monitoring 100K+ users across the Adelphi domain. Deep expertise in programming, cybersecurity, and technology leadership.',
+        img: '/images/Onkar.jpg', id: 'onkar',
+        tags: ['Help Desk', 'Cybersecurity', 'Leadership'],
     },
 ];
 
 export default function TeamPage() {
     return (
-        <section>
-            <div className="mb-12 text-center">
-                <h1 className={title()}>About</h1>
+        <main className="max-w-5xl mx-auto px-6 pt-14 pb-28">
+            <div className="mb-16">
+                <span className="text-[10px] tracking-[0.3em] uppercase font-semibold text-brand-purple">The People</span>
+                <h1 className="text-4xl md:text-5xl font-bold gradient-text mt-2 mb-3">Meet the Team</h1>
+                <p className="text-slate-500 dark:text-slate-400 max-w-xl text-sm leading-relaxed">
+                    Three managing partners with expertise in IT, cybersecurity, and software development.
+                </p>
             </div>
 
             <motion.div
-                className="flex flex-wrap justify-center gap-8"
-                initial="hidden"
-                animate="show"
-                variants={{
-                    hidden: {},
-                    show: {
-                        transition: { staggerChildren: 1 }, // animate one card after another
-                    }
-                }}
+                className="grid grid-cols-1 md:grid-cols-3 gap-5"
+                initial="hidden" animate="show"
+                variants={{ show: { transition: { staggerChildren: 0.12 } } }}
             >
                 {team.map((m) => (
-                    <motion.div
-                        key={m.id}
-                        variants={{
-                            hidden: { width: 0, opacity: 0 },
-                            show: { width: "100%", opacity: 1 },
-                        }}
-                        transition={{ duration: 3, ease: "easeInOut" }}
-                        className="max-w-sm"
-                    >
-                        <Card
-                            radius="lg"
-                            shadow="lg"
-                            className="w-full bg-content1/60 backdrop-blur-xl border light:border-black/10 dark:border-white/10"
-                        >
-                            <CardBody className="p-6 md:p-8">
-                                <div className="flex flex-col items-center text-center">
-                                    <Link href={`/team/${encodeURIComponent(m.id)}`}>
-                                        <Image
-                                            src={m.img}
-                                            alt={`${m.name} headshot`}
-                                            width={224}
-                                            height={288}
-                                            radius="lg"
-                                            isBlurred
-                                            classNames={{
-                                                wrapper:
-                                                    "mb-6 shrink-0 rounded-2xl bg-white/20 backdrop-blur-3xl border light:border-black dark:border-white/10",
-                                                img: "object-cover",
-                                            }}
-                                        />
-                                    </Link>
-                                    <h3 className="text-2xl font-semibold leading-tight">{m.name}</h3>
-                                    <p className="text-base text-gray-400 mt-1">{m.role}</p>
+                    <motion.div key={m.id}
+                        variants={{ hidden: { opacity: 0, y: 18 }, show: { opacity: 1, y: 0 } }}
+                        transition={{ duration: 0.45, ease: 'easeOut' }}>
+                        <Link href={`/team/${m.id}`} className="group block h-full">
+                            <article className="h-full flex flex-col rounded-2xl border overflow-hidden
+                                                bg-white dark:bg-white/[0.03]
+                                                border-slate-100 dark:border-white/[0.07]
+                                                hover:border-sky-200 dark:hover:border-brand-blue/28
+                                                hover:shadow-[0_4px_24px_rgba(109,40,217,0.12)] dark:hover:shadow-none
+                                                transition-all duration-250">
+                                {/* Photo */}
+                                <div className="relative aspect-[3/4] overflow-hidden bg-slate-100 dark:bg-white/5">
+                                    <Image src={m.img} alt={m.name} fill
+                                        className="object-cover object-top group-hover:scale-105 transition-transform duration-500" />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-white dark:from-[#08010f] via-transparent to-transparent" />
                                 </div>
-                            </CardBody>
-                        </Card>
+
+                                {/* Info */}
+                                <div className="flex flex-col flex-1 p-5">
+                                    <p className="text-[10px] tracking-[0.25em] uppercase font-semibold text-brand-purple mb-0.5">
+                                        {m.title} · {m.role}
+                                    </p>
+                                    <h2 className="text-lg font-bold text-slate-900 dark:text-white mb-2">{m.name}</h2>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed mb-4 line-clamp-3">{m.about}</p>
+
+                                    <div className="flex flex-wrap gap-1.5 mt-auto">
+                                        {m.tags.map(tag => (
+                                            <span key={tag}
+                                                className="px-2.5 py-0.5 rounded-full text-[11px] font-medium
+                                                           bg-sky-50 dark:bg-brand-blue/8
+                                                           text-sky-700 dark:text-brand-blue-lt
+                                                           border border-sky-200 dark:border-brand-blue/18">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </div>
+                                    <p className="mt-4 text-[11px] text-slate-400 dark:text-slate-600 group-hover:text-brand-purple dark:group-hover:text-brand-blue-lt transition-colors">
+                                        View profile →
+                                    </p>
+                                </div>
+                            </article>
+                        </Link>
                     </motion.div>
                 ))}
             </motion.div>
-
-        </section>
+        </main>
     );
 }

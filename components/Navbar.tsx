@@ -1,4 +1,5 @@
 'use client';
+
 import {
     Navbar as HeroUINavbar,
     NavbarContent,
@@ -7,110 +8,119 @@ import {
     NavbarBrand,
     NavbarItem,
     NavbarMenuItem,
-} from "@heroui/navbar";
-import {Button} from "@heroui/button";
-import {Kbd} from "@heroui/kbd";
-import {Link} from "@heroui/link";
-import {Input} from "@heroui/input";
-import React, { useEffect, useRef } from 'react';
-import clsx from "clsx";
-
-import {siteConfig} from "@/config/site";
-import {
-    // HI
-//     TwitterIcon,
-//     GithubIcon,
-//     DiscordIcon,
-//     HeartFilledIcon,
-//     SearchIcon,
-Logo,
-} from "@/components/Icons";
+} from '@heroui/navbar';
+import { Link } from '@heroui/link';
+import React from 'react';
+import clsx from 'clsx';
+import { usePathname } from 'next/navigation';
+import { siteConfig } from '@/config/site';
+import { Logo } from '@/components/Icons';
 
 export const Navbar = () => {
-
     const [isMenuOpen, setIsMenuOpen] = React.useState(false);
-
-
-    /*const searchInput = (
-      <Input
-        aria-label="Search"
-        classNames={{
-          inputWrapper: "bg-default-100",
-          input: "text-sm",
-        }}
-        endContent={
-          <Kbd className="hidden lg:inline-block" keys={["command"]}>
-            K
-          </Kbd>
-        }
-        labelPlacement="outside"
-        placeholder="Search..."
-        startContent={
-          <SearchIcon className="text-base text-default-400 pointer-events-none flex-shrink-0" />
-        }
-        type="search"
-      />
-    );*/
+    const pathname = usePathname();
+    const isHome   = pathname === '/';
 
     return (
-        <HeroUINavbar isMenuOpen={isMenuOpen}
-                      onMenuOpenChange={setIsMenuOpen} maxWidth="xl" position="static" shouldHideOnScroll>
-            <NavbarContent className="basis-1/5 lg:basis-full" justify="center">
-                <NavbarMenuToggle
-                    aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                    className="lg:hidden"
-                />
+        <HeroUINavbar
+            isMenuOpen={isMenuOpen}
+            onMenuOpenChange={setIsMenuOpen}
+            maxWidth="xl"
+            position="sticky"
+            shouldHideOnScroll={false}
+            classNames={{
+                base:    'glass-dark border-b border-sky-500/8 dark:border-sky-500/6 z-50',
+                wrapper: 'px-4 sm:px-6',
+            }}
+        >
+            <NavbarContent justify="start">
+                {!isHome && (
+                    <NavbarMenuToggle
+                        aria-label={isMenuOpen ? 'Close' : 'Open'}
+                        className="lg:hidden text-sky-700 dark:text-sky-300"
+                    />
+                )}
                 <NavbarBrand as="li" className="gap-3 max-w-fit">
-                    <Link className="flex justify-start items-center gap-1" href="/">
-                        <Logo/>
-                        <p className="text-white font-bold text-inherit">Novarra</p>
+                    <Link className="flex items-center gap-2" href="/">
+                        <Logo size={26} className="text-brand-blue" />
+                        <span className="font-bold tracking-tight text-[15px] text-slate-900 dark:text-white">
+                            Novarra
+                        </span>
                     </Link>
                 </NavbarBrand>
-                <ul className="hidden lg:flex gap-4 justify-start ml-2">
-                    {siteConfig.navItems.map((item) => (
-                        <NavbarItem key={item.href}>
-                            <Link
-                                className={clsx(
-                                    "data-[active=true]:text-primary data-[active=true]:font-medium",
-                                )}
-                                color="foreground"
-                                href={item.href}
-                            >
-                                {item.label}
-                            </Link>
-                        </NavbarItem>
-                    ))}
-                </ul>
+
+                {!isHome && (
+                    <ul className="hidden lg:flex gap-1 ml-6">
+                        {siteConfig.navItems.map((item) => {
+                            const active = pathname === item.href;
+                            return (
+                                <NavbarItem key={item.href}>
+                                    <Link
+                                        href={item.href}
+                                        className={clsx(
+                                            'px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200',
+                                            active
+                                                ? 'text-slate-900 dark:text-white bg-sky-100 dark:bg-sky-900/30'
+                                                : 'text-slate-500 dark:text-sky-300/60 hover:text-slate-900 dark:hover:text-white hover:bg-sky-50 dark:hover:bg-sky-900/20',
+                                        )}
+                                    >
+                                        {item.label}
+                                    </Link>
+                                </NavbarItem>
+                            );
+                        })}
+                    </ul>
+                )}
             </NavbarContent>
 
-            <NavbarContent
-                className="hidden sm:flex basis-1/5 sm:basis-full"
-                justify="end"
-            >
-                <NavbarItem className="hidden sm:flex gap-2">
-                </NavbarItem>
-            </NavbarContent>
+            {!isHome && (
+                <NavbarContent className="hidden sm:flex" justify="end">
+                    <NavbarItem>
+                        <Link
+                            href="/contact-us"
+                            className="px-5 py-2 rounded-full text-sm font-semibold
+                                       bg-brand-blue hover:bg-brand-blue-xl text-white
+                                       transition-colors duration-200 glow-blue"
+                        >
+                            Get in touch
+                        </Link>
+                    </NavbarItem>
+                </NavbarContent>
+            )}
 
-
-            <NavbarMenu>
-                {/*searchInput*/}
-                <div className="mx-4 mt-2 flex flex-col gap-2">
-                    {siteConfig.navItems.map((item) => (
-                        <NavbarItem key={item.href}>
-                            <Link
-                                className={clsx(
-                                    "data-[active=true]:text-primary data-[active=true]:font-medium",
-                                )}
-                                color="foreground"
-                                href={item.href}
-                                onPress={() => setIsMenuOpen(false)}
-                            >
-                                {item.label}
-                            </Link>
-                        </NavbarItem>
-                    ))}
-                </div>
-            </NavbarMenu>
+            {!isHome && (
+                <NavbarMenu className="glass-dark pt-6 pb-8 gap-1">
+                    {siteConfig.navItems.map((item) => {
+                        const active = pathname === item.href;
+                        return (
+                            <NavbarMenuItem key={item.href}>
+                                <Link
+                                    href={item.href}
+                                    onPress={() => setIsMenuOpen(false)}
+                                    className={clsx(
+                                        'block w-full px-4 py-3 rounded-xl text-base font-medium transition-colors duration-200',
+                                        active
+                                            ? 'text-slate-900 dark:text-white bg-sky-100 dark:bg-sky-900/30'
+                                            : 'text-slate-500 dark:text-sky-300/60 hover:text-slate-900 dark:hover:text-white hover:bg-sky-50 dark:hover:bg-sky-900/20',
+                                    )}
+                                >
+                                    {item.label}
+                                </Link>
+                            </NavbarMenuItem>
+                        );
+                    })}
+                    <div className="mt-4 px-4">
+                        <Link
+                            href="/contact-us"
+                            onPress={() => setIsMenuOpen(false)}
+                            className="block w-full text-center px-5 py-3 rounded-full
+                                       text-sm font-semibold bg-brand-blue text-white"
+                        >
+                            Get in touch
+                        </Link>
+                    </div>
+                </NavbarMenu>
+            )}
         </HeroUINavbar>
     );
 };

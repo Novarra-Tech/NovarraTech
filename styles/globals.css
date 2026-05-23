@@ -1,50 +1,76 @@
 @import "tailwindcss";
-.clip-left {
-  clip-path: inset(0 66.66% 0 0); /* show left third */
+
+body { margin: 0; padding: 0; }
+
+/* ─── Glass ───────────────────────────────────────────────────────────────── */
+.glass {
+    background:          rgba(14, 165, 233, 0.05);
+    backdrop-filter:     blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border:              1px solid rgba(14, 165, 233, 0.10);
+}
+html.light .glass {
+    background:          rgba(255, 255, 255, 0.85);
+    backdrop-filter:     blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border:              1px solid rgba(14, 165, 233, 0.15);
+    box-shadow:          0 1px 6px rgba(14, 165, 233, 0.08);
 }
 
-.clip-middle {
-  clip-path: inset(0 33.33% 0 33.33%); /* show middle third */
+.glass-dark {
+    background:          rgba(2, 11, 24, 0.80);
+    backdrop-filter:     blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border:              1px solid rgba(14, 165, 233, 0.08);
+}
+html.light .glass-dark {
+    background:          rgba(255, 255, 255, 0.93);
+    backdrop-filter:     blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border:              1px solid rgba(14, 165, 233, 0.12);
+    box-shadow:          0 2px 14px rgba(14, 165, 233, 0.08);
 }
 
-.clip-right {
-  clip-path: inset(0 0 0 66.66%); /* show right third */
+/* ─── Gradient text ───────────────────────────────────────────────────────── */
+.gradient-text {
+    background: linear-gradient(135deg, #f0f9ff 0%, #7dd3fc 50%, #22d3ee 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+html.light .gradient-text {
+    background: linear-gradient(135deg, #0c2340 0%, #0284c7 55%, #0891b2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
 }
 
-body {
-    margin: 0;
-    padding: 0;
+/* ─── Glow ────────────────────────────────────────────────────────────────── */
+.glow-blue {
+    box-shadow: 0 0 22px rgba(14, 165, 233, 0.30);
+}
+html.light .glow-blue {
+    box-shadow: 0 4px 20px rgba(2, 132, 199, 0.22);
 }
 
+/* ─── Section divider ─────────────────────────────────────────────────────── */
+.section-divider {
+    border-top: 1px solid rgba(14, 165, 233, 0.08);
+}
+html.light .section-divider {
+    border-top: 1px solid rgba(14, 165, 233, 0.12);
+}
+
+/* ─── Alert animations ────────────────────────────────────────────────────── */
 @keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translate(0%, 40px);
-  }
-  to {
-    opacity: 1;
-    transform: translate(0%, 0);
-  }
+    from { opacity: 0; transform: translate(0, 40px); }
+    to   { opacity: 1; transform: translate(0, 0); }
 }
-
 @keyframes slideDown {
-  from {
-    opacity: 1;
-    transform: translate(0%, 0);
-  }
-  to {
-    opacity: 0;
-    transform: translate(0%, 40px);
-  }
+    from { opacity: 1; transform: translate(0, 0); }
+    to   { opacity: 0; transform: translate(0, 40px); }
 }
-
-.animate-slide-up {
-  animation: slideUp 0.3s ease-out forwards;
-}
-
-.animate-slide-down {
-  animation: slideDown 0.3s ease-in forwards;
-}
-
+.animate-slide-up   { animation: slideUp   0.3s ease-out forwards; }
+.animate-slide-down { animation: slideDown 0.3s ease-in  forwards; }
 
 @config "../tailwind.config.js"
