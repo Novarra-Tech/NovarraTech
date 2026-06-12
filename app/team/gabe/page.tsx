@@ -6,13 +6,13 @@ import Link from "next/link";
 
 const MEMBER = {
     name:  "Gabriel Kaloo",
-    role:  "Managing Partner · CEO",
+    role:  "Managing Partner · Chief Executive Officer",
     img:   "/images/Gabe.png",
-    tags:  ["AV Systems", "Level 1 & 2 IT", "Cybersecurity", "Network Engineering", "Client Relations"],
+    tags:  ["AV Systems", "Level 1 & 2 IT", "Cybersecurity", "Network Engineering", "Enterprise client Relations"],
     bio: [
-        "Gabriel is a senior Computer Science student and Audio Visual Technician at Adelphi University. He manages classroom technology systems across campus, working with a dedicated IT team and external vendors to keep systems running seamlessly.",
-        "Beyond his AV expertise, Gabriel brings extensive experience in Level 1 and Level 2 IT services. He has collaborated with high-profile corporate clients, delivering IT solutions that meet enterprise standards of performance and security.",
-        "Exposure to network engineering and cybersecurity further strengthens his ability to approach projects with technical depth and a security-first mindset. Recognized for his professionalism, Gabriel works directly with clients to ensure their needs are understood and their satisfaction is achieved.",
+        "Gabriel is a Computer Science graduate from Adelphi University, holding a Bachelor of Science with a specialization in Cybersecurity and Software Engineering. He currently serves as an Information Technology Specialist at SphereNY, delivering Level 1 and Level 2 corporate IT support and contributing to cybersecurity-focused projects at an enterprise level..",
+        "His experience spans both corporate and institutional environments. Prior to SphereNY, Gabriel served on Adelphi University's AV team as a Technical Support Specialist, where he maintained and troubleshot Crestron, Extron, and Liteware classroom systems, coordinated with external vendors on room builds, and mentored incoming Help Desk staff — building a well-rounded foundation in IT operations, client-facing support, and hands-on technical work.",
+        "Exposure to network engineering and cybersecurity further strengthens his ability to approach projects with technical depth and a security-first mindset. Having worked alongside high-end companies and clientele, Gabriel understands the standard of service that professionals expect — and brings that same commitment to every client interaction, ensuring their needs are heard and their satisfaction is the priority."
     ],
 };
 
